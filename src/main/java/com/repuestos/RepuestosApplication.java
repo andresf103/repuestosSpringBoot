@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RepuestosApplication {
 
-@GetMapping("/")
-    String home(Model model){
-    return "home";
+    @GetMapping("/")
+    String home(Model model) {
+        return "home";
     }
-	public static void main(String[] args) {
-		SpringApplication.run(RepuestosApplication.class, args);
-	}
+
+    @GetMapping("/repuesto")
+    String repuesto(Model model) {
+        return "repuesto";
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(RepuestosApplication.class, args);
+    }
 
 }
