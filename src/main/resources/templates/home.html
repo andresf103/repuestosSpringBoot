@@ -1,24 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="fragments/head :: head">
+    </head>
 
-<head th:replace="fragments/head :: head">
-</head>
+    <body>
+        <header>
+            <div th:replace="fragments/header :: header"></div>
+        </header>
+        <main>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Lista de maquinas</h4>
+                                    <a th:href="@{/maquina/agregar}">Agregar</a>
+                                </div>
+                                <div th:if="${maquinas != null and !maquinas.empty}">
+                                    <table class="table table-stryped">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>patente</th>
+                                                <th>descripcion</th>
+                                                <th>numero de serie</th>
+                                                <th>numero de motor</th>
+                                                <th>modelo</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="maquina : ${maquinas}">
+                                                <td>[[${maquina.patente}]]</td>
+                                                <td>[[${maquina.descripcion}]]</td>
+                                                <td>
+                                                    [[${maquina.nSerie}]]
+                                                </td>
+                                                <td>
+                                                    [[${maquina.nMotor}]]
+                                                </td>
+                                                <td>[[${maquina.modelo}]]</td>
+                                                <td><a  th:href="@{/maquina/editar/} + ${maquina.idMaquina}"
+                                                        class="btn btn-secondary">
+                                                           <i class="fas fa-angle-double-right"></i> Editar
+                                                    </a></td>
+                                                <td><a th:href="@{/maquina/eliminar(idMaquina=${maquina.idMaquina})}"
+                                                        class="btn btn-dark">
+                                                           <i class="fas fa-angle-double-right"></i> Eliminar
+                                                    </a></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>  
+                                <div class="text-center p-2" th:if="${maquinas == null or maquinas.empty}">
+                                    <span>la lista esta vacía</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div th:replace="fragments/footer :: footer">
+        </footer>
 
-<body>
-    <header>
-        <div th:replace="fragments/header :: header"></div>
-    </header>
-    <main>
-        <p>Esto es por java</p>
-    </main>
-    <footer>
-        <div th:replace="fragments/footer :: footer">
-    </footer>
 
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    </body>
 
 </html>

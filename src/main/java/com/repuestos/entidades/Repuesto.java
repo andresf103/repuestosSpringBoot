@@ -13,17 +13,17 @@ import javax.persistence.*;
 @Table(name="repuesto")
 public class Repuesto implements Serializable {
     @Id
-    @Column(name="id_repuesto", nullable=false, length=70)
+    @Column(name="id_repuesto", nullable=false)
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer idRepuesto;
+    private Long idRepuesto;
     @Column(nullable=false, length=90)
     private String descripcion;
 
-    public Integer getIdRepuesto() {
+    public Long getIdRepuesto() {
         return idRepuesto;
     }
 
-    public void setIdRepuesto(Integer idRepuesto) {
+    public void setIdRepuesto(Long idRepuesto) {
         this.idRepuesto = idRepuesto;
     }
 
