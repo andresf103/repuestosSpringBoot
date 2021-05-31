@@ -20,18 +20,18 @@ public class ControladorRepuestos {
     String homeRepuesto(Model model) {
         var repuestos = repuestoService.listarRepuestos();
         model.addAttribute("repuestos", repuestos);
-        return "home";
+        return "homeRepuesto";
     }
 
     @GetMapping("/repuesto/agregar")
     public String agregarRepuestos(Repuesto repuesto) {
-        return "modificar";
+        return "modificarRemuesto";
     }
 
     @PostMapping("/repuesto/agregar")
     public String agregarRepuesto(@Valid Repuesto repuesto, Errors errores) {
         if (errores.hasErrors()) {
-            return "modificar";
+            return "modificarRepuesto";
         }
         repuestoService.guardar(repuesto);
         return "redirect:/repuesto/";
@@ -42,7 +42,7 @@ public class ControladorRepuestos {
     public String editarRepuesto(Repuesto repuesto, Model model) {
         repuesto = repuestoService.encontrarRepuesto(repuesto);
         model.addAttribute("repuesto", repuesto);
-        return "modificar";
+        return "modificarRepuesto";
     }
 
     @GetMapping("/repuesto/eliminar")
