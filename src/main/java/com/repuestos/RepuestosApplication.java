@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class RepuestosApplication {
 
-    @GetMapping("/repuesto")
-    String repuesto(Model model) {
-        return "repuesto";
+    @GetMapping("/")
+    String home(){
+    return "redirect:/maquina/";
     }
-
+    
     @GetMapping("/error")
     /*el nombre del metodo tiene que tener el mismo nombre que la vista eso parece*/
     String error(Model model) {

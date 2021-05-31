@@ -21,18 +21,18 @@ public class ControladorMaquinas {
     String home(Model model){
     var maquinas = maquinaService.listarMaquinas();
         model.addAttribute("maquinas", maquinas);
-        return "home";
+        return "homeMaquinas";
     }
 
     @GetMapping("/maquina/agregar")
     public String agregarMaquinas(Maquina maquina){
-    return "modificar";
+    return "modificarMaquinas";
     }
     
     @PostMapping("/maquina/agregar")
     public String agregarMaquina(@Valid Maquina maquina,Errors errores){
         if(errores.hasErrors()){
-            return "modificar";
+            return "modificarMaquinas";
         }
         maquinaService.guardar(maquina);
         return "redirect:/maquina/";
@@ -44,7 +44,7 @@ public class ControladorMaquinas {
     public String editarMaquina(Maquina maquina, Model model){
         maquina=maquinaService.encontrarMaquina(maquina);
         model.addAttribute("maquina", maquina);
-        return "modificar";
+        return "modificarMaquinas";
     }
     
         @GetMapping("/maquina/eliminar")
