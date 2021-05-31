@@ -14,6 +14,18 @@ public class MaquinaRepuesto implements Serializable {
     private static final long serialVersionUID=1L;
     
     @Id
+    @Column(name="id_maquina_repuesto", nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idMaquinaRepuesto;
+
+    public Long getIdMaquinaRepuesto() {
+        return idMaquinaRepuesto;
+    }
+
+    public void setIdMaquinaRepuesto(Long idMaquinaRepuesto) {
+        this.idMaquinaRepuesto = idMaquinaRepuesto;
+    }
+    
     @JoinColumn(name="id_repuesto", referencedColumnName="id_repuesto")
     @ManyToOne
     private Repuesto repuesto; 
@@ -22,6 +34,15 @@ public class MaquinaRepuesto implements Serializable {
     private Maquina maquina;
     @Column(nullable=false, length=70)
     private String descripcion;
+    private String marca;
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -33,7 +54,8 @@ public class MaquinaRepuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "MaquinaRepuesto{" + "repuesto=" + repuesto + ", maquina=" + maquina + ", descripcion=" + descripcion + '}';
+        return "MaquinaRepuesto{" + "repuesto=" + repuesto + ", maquina=" + maquina + ", descripcion=" +
+                descripcion +", marca="+ marca + '}';
     }
 
     @Override
