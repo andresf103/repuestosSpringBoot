@@ -15,30 +15,72 @@
     background: #555;
 }
 
+html{
+      min-height: 100%;
+  position: relative;
+}
+
 body {
+    margin:0;
     font-family: 'Roboto', sans-serif;
     color:white;
-    min-height: 100vh;
     background-image: url("/OIC-SA-LOGO.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    margin-bottom: 6rem;
 }
 nav {
-    font-family: 'Bowlby One SC', cursive;
-    background: #222;
+    /*font-family: 'Bowlby One SC', cursive;*/
+    background: rgba(40,65,120,1);
 }
 
 footer {
-    height: fit-content;
-    color: #99f2c8;
-    padding: 0.5rem;
-    margin-bottom: 0px;
     width:100%;
     position:absolute;
     bottom:0;
+    height: 6rem;
+    background: rgba(40,65,120,1);
 }
 
-table{
-    background-color: rgba(0, 0, 0, .1);
-    backdrop-filter: blur(5px);
+.container-table{
+    width: 90%;
+    background-color: rgba(0, 0, 0, .4);
+    backdrop-filter: blur(15px);
+    margin:50px auto;
+    box-shadow: 0 0 20px #333;
+    display:grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-auto-rows: 60px 40px auto;
 }
+.table-title{
+    grid-column-start: 1;
+    grid-column-end: 8;
+    background: rgba(40,65,120,.1);
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.9em;
+}
+
+.table-header, .table-item{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom:1px solid white;
+}
+.table-header{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.table-item{
+    padding:10px;
+    font-size: 1em;
+}
+
+/*.table-header:nth-of-type(n+7), .table-item:nth-of-type(n+7){
+    background: rgba(40,65,120,.7);
+    backdrop-filter: blur(15px);
+}*/
+    
