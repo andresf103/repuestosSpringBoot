@@ -16,7 +16,7 @@ public class ControladorRepuestos {
     @Autowired
     private RepuestoService repuestoService;
 
-    @GetMapping("/repuesto/")
+    @GetMapping("/repuesto")
     String homeRepuesto(Model model) {
         var repuestos = repuestoService.listarRepuestos();
         model.addAttribute("repuestos", repuestos);
@@ -25,7 +25,7 @@ public class ControladorRepuestos {
 
     @GetMapping("/repuesto/agregar")
     public String agregarRepuestos(Repuesto repuesto) {
-        return "modificarRemuesto";
+        return "modificarRepuesto";
     }
 
     @PostMapping("/repuesto/agregar")
