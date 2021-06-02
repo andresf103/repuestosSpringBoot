@@ -11,59 +11,52 @@
         </header>
         <main>
             <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Lista de maquinas</h4>
-                                    <a th:href="@{/maquina/agregar}">Agregar</a>
-                                </div>
-                                <div th:if="${maquinas != null and !maquinas.empty}">
-                                    <table class="table table-stryped">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th>patente</th>
-                                                <th>descripcion</th>
-                                                <th>numero de serie</th>
-                                                <th>numero de motor</th>
-                                                <th>modelo</th>
-                                                <th></th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="maquina : ${maquinas}">
-                                                <td>[[${maquina.patente}]]</td>
-                                                <td>[[${maquina.descripcion}]]</td>
-                                                <td>
-                                                    [[${maquina.nSerie}]]
-                                                </td>
-                                                <td>
-                                                    [[${maquina.nMotor}]]
-                                                </td>
-                                                <td>[[${maquina.modelo}]]</td>
-                                                <td><a  th:href="@{/maquina/editar/} + ${maquina.idMaquina}"
-                                                        class="btn btn-secondary">
-                                                           <i class="fas fa-angle-double-right"></i> Editar
-                                                    </a></td>
-                                                <td><a th:href="@{/maquina/eliminar(idMaquina=${maquina.idMaquina})}"
-                                                        class="btn btn-dark">
-                                                           <i class="fas fa-angle-double-right"></i> Eliminar
-                                                    </a></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>  
-                                <div class="text-center p-2" th:if="${maquinas == null or maquinas.empty}">
-                                    <span>la lista esta vacía</span>
-                                </div>
-                            </div>
+                <th:block  th:if="${maquinaRepuestos != null and !maquinaRepuestos.empty}">
+                    <div class="container-table">
+                        <div class="table-title">
+                            <h4 class="col-md-11" style="display: inline-block">[[${maquinaRepuestos[0].maquina.patente}]]</h4>
+                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar}">Agregar</a>
                         </div>
+                        <div class="table-header">ID Repuesto Maquina</div>
+                        <div class="table-header">Repuesto</div>
+                        <div class="table-header">Descripcion particular del repuesto</div>
+                        <div class="table-header">Marca</div>
+                        <div class="table-header"></div>
+                        <div class="table-header"></div>
+                        <div class="table-header"></div>
+                        <th:block th:each="maquinaRepuesto : ${maquinaRepuestos}">
+                            <div class="table-item">[[${maquinaRepuesto.idMaquinaRepuesto}]]</div>
+                            <div class="table-item">[[${maquinaRepuesto.repuesto.descripcion}]]</div>
+                            <div class="table-item">[[${maquinaRepuesto.descripcion}]]</div>
+                            <div class="table-item">[[${maquinaRepuesto.marca}]]</div>
+                            <div class="table-item"></div>
+                            <div class="table-item"><a  th:href="@{/maquinaRepuesto/editar/} + ${maquinaRepuesto.idMaquinaRepuesto}"
+                                                        class="btn btn-primary">
+                                    <i class="fas fa-angle-double-right"></i> Editar
+                                </a></div>
+                            <div class="table-item"><a th:href="@{/maquinaRepuesto/eliminar(idMaquinaRepuesto=${maquinaRepuesto.idMaquinaRepuesto})}"
+                                                       class="btn btn-dark">
+                                    <i class="fas fa-angle-double-right"></i> Eliminar
+                                </a></div>
+                        </th:block>
                     </div>
-                </div>
+                </th:block>
+                <th:block class="text-center p-2" th:if="${maquinaRepuestos == null or maquinaRepuestos.empty}">
+                    <div class="container-table">
+                        <div class="table-title">
+                            <h4 class="col-md-11" style="display: inline-block">Lista de maquinas</h4>
+                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar}">Agregar</a>
+                        </div>
+                        <div class="table-header">ID Repuesto Maquina</div>
+                        <div class="table-header">Repuesto</div>
+                        <div class="table-header">Descripcion particular del repuesto</div>
+                        <div class="table-header">Marca</div>
+                        <div class="table-header"></div>
+                        <div class="table-header"></div>
+                        <div class="table-header"></div>
+                    </div>
+                    <span>la lista esta vacía</span>
+                </th:block>
             </section>
         </main>
         <footer>

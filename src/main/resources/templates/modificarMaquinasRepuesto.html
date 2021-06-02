@@ -11,15 +11,15 @@
             <div th:replace="fragments/header :: header"></div>
         </header>
         <main>
-            <form th:action="@{/maquina/agregar}" th:object="${maquina}" method="POST" class="was-validated">
-                <input type="hidden" name="idMaquina" th:field="*{idMaquina}"/>
+            <form th:action="@{/maquinaRepuesto/agregar}" th:object="${maquinaRepuesto}" method="POST" class="was-validated">
+                <input type="hidden" name="idMaquinaRepuesto" th:field="*{idMaquinaRepuesto}"/>
                 <section class="py-4 mb-4 bg-light">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3" >
                                 <input type="submit"  class="btn btn-primary btn-block" value="Agregar" >
                                     <i class="fas fa-plus"></i>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -34,29 +34,30 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="patente">[[#{maquina.patente}]]</label>
-                                            <input type="text" class="form-control" name="patente" 
-                                                   required="true" th:field="*{patente}"/>
+                                            <!-- aqui tenemos que poner un option con cada una de las Maquinas -->
+                                            <select th:field="*{maquina}" required="true">
+                                                <th:block th:each="maquina : ${maquinas}">
+                                                    <option th:value="${maquina.idMaquina}" >[[${maquina.patente}]]</option>
+                                                </th:block>
+                                            </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="apellido">[[#{maquina.descripcion}]]</label>
+                                            <!-- aqui tenemos que poner un option con cada una de los repuestos -->
+                                            <select  th:field="*{repuesto}" required="true">
+                                                <th:block th:each="repuesto : ${repuestos}">
+                                                    <option th:value="${repuesto.idRepuesto}" >[[${repuesto.descripcion}]]</option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="descripcion">[[#{repuestoMaquina.descripcion}]]</label>
                                             <input type="text" class="form-control" name="descripcion" 
                                                    required="true" th:field="*{descripcion}"/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="serie">[[#{maquina.nSerie}]]</label>
-                                            <input type="text" class="form-control" name="serie" 
-                                                   required="true" th:field="*{nSerie}"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="motor">[[#{maquina.nMotor}]]</label>
-                                            <input type="text" class="form-control" name="motor" 
-                                                   required="true" th:field="*{nMotor}"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="modelo">[[#{maquina.modelo}]]</label>
-                                            <input type="number" class="form-control" name="modelo" 
-                                                   required="true" th:field="*{modelo}" step="any"/>
+                                            <label for="marca">[[#{repuestoMaquina.marca}]]</label>
+                                            <input type="text" class="form-control" name="marca" 
+                                                   required="true" th:field="*{marca}"/>
                                         </div>
                                     </div>
                                 </div>

@@ -2,6 +2,7 @@ package com.repuestos.servicio;
 
 import com.repuestos.entidades.MaquinaRepuesto;
 import com.repuestos.dao.DaoMaquinaRepuesto;
+import com.repuestos.entidades.Maquina;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class MaquinaRepuestoServiceImpl implements MaquinaRepuestoService {
     public MaquinaRepuesto encontrarMaquinaRepuesto(MaquinaRepuesto maquinaRepuesto) {
         maquinaRepuesto = daoMaquinaRepuesto.findById(maquinaRepuesto.getIdMaquinaRepuesto().longValue()).orElse(null);
         return maquinaRepuesto;
+    }
+
+    @Override
+    public List<MaquinaRepuesto> listarPorMaquina(Maquina maquina) {
+       return daoMaquinaRepuesto.findByMaquina(maquina);
     }
 
 }

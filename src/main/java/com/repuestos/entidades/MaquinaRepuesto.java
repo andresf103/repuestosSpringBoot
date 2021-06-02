@@ -1,22 +1,32 @@
-
 package com.repuestos.entidades;
-
 
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.*;
 
-
-
 @Entity
-@Table(name="maquina_repuesto")
+@Table(name = "maquina_repuesto")
 public class MaquinaRepuesto implements Serializable {
-    private static final long serialVersionUID=1L;
-    
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @Column(name="id_maquina_repuesto", nullable=false)
+    @Column(name = "id_maquina_repuesto", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMaquinaRepuesto;
+
+    @JoinColumn(name = "id_repuesto", referencedColumnName = "id_repuesto")
+    @ManyToOne
+    private Repuesto repuesto;
+
+    @JoinColumn(name = "id_maquina", referencedColumnName = "id_maquina")
+    @ManyToOne
+    private Maquina maquina;
+
+    @Column(nullable = false, length = 70)
+    private String descripcion;
+
+    private String marca;
 
     public Long getIdMaquinaRepuesto() {
         return idMaquinaRepuesto;
@@ -25,16 +35,6 @@ public class MaquinaRepuesto implements Serializable {
     public void setIdMaquinaRepuesto(Long idMaquinaRepuesto) {
         this.idMaquinaRepuesto = idMaquinaRepuesto;
     }
-    
-    @JoinColumn(name="id_repuesto", referencedColumnName="id_repuesto")
-    @ManyToOne
-    private Repuesto repuesto; 
-    @JoinColumn(name="id_maquina", referencedColumnName="id_maquina")
-    @ManyToOne
-    private Maquina maquina;
-    @Column(nullable=false, length=70)
-    private String descripcion;
-    private String marca;
 
     public String getMarca() {
         return marca;
@@ -54,8 +54,8 @@ public class MaquinaRepuesto implements Serializable {
 
     @Override
     public String toString() {
-        return "MaquinaRepuesto{" + "repuesto=" + repuesto + ", maquina=" + maquina + ", descripcion=" +
-                descripcion +", marca="+ marca + '}';
+        return "MaquinaRepuesto{" + "repuesto=" + repuesto + ", maquina=" + maquina + ", descripcion="
+                + descripcion + ", marca=" + marca + '}';
     }
 
     @Override
@@ -102,5 +102,5 @@ public class MaquinaRepuesto implements Serializable {
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
     }
-    
+
 }

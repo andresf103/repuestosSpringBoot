@@ -1,8 +1,10 @@
-
 package com.repuestos.controladores;
 
+import com.repuestos.entidades.Maquina;
 import com.repuestos.entidades.MaquinaRepuesto;
 import com.repuestos.servicio.MaquinaRepuestoService;
+import com.repuestos.servicio.MaquinaService;
+import com.repuestos.servicio.RepuestoService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,44 +13,62 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 public class ControladorMaquinaRepuesto {
-        @Autowired
-    private MaquinaRepuestoService maquinaRepuestoService;
 
-    @GetMapping("/maquinaRepuesto/")
-    String homeMaquinaRepuesto(Model model) {
-        var repuestos =maquinaRepuestoService.listarMaquinaRepuestos();
-        model.addAttribute("repuestos", repuestos);
-        return "home";
+    @Autowired
+    private MaquinaRepuestoService maquinaRepuestoService;
+    @Autowired
+    private MaquinaService maquinaService;
+    @Autowired
+    private RepuestoService repuestoService;
+
+    @GetMapping("/maquinaRepuesto/{idMaquina}")
+    String homeMaquinaRepuesto(Maquina maquina, Model model) {
+        
+        var maquinaRepuestos = maquinaRepuestoService.listarPorMaquina(maquina);
+        model.addAttribute("maquinaRepuestos", maquinaRepuestos);
+        return "homeMaquinaRepuesto";
+    }
+    
+        @GetMapping("/maquinaRepuesto/")
+    String homeMaquinaRepuestos(Maquina maquina) {
+        return "homeMaquinaRepuesto";
     }
 
     @GetMapping("/maquinaRepuesto/agregar")
-    public String agregarMaquinaRepuestos(MaquinaRepuesto maquinaRepuesto) {
-        return "modificar";
+    public String agregarMaquinaRepuestos(MaquinaRepuesto maquinaRepuesto, Model model) {
+        var maquinas = maquinaService.listarMaquinas();
+        var repuestos = repuestoService.listarRepuestos();
+        model.addAttribute("repuestos", repuestos);
+        model.addAttribute("maquinas", maquinas);
+        return "modificarMaquinasRepuesto";
     }
 
     @PostMapping("/maquinaRepuesto/agregar")
     public String agregarMaquinaRepuesto(@Valid MaquinaRepuesto maquinaRepuesto, Errors errores) {
         if (errores.hasErrors()) {
-            return "modificar";
+            return "modificarMaquinasRepuesto";
         }
-       maquinaRepuestoService.guardar(maquinaRepuesto);
-        return "redirect:/maquinaRepuesto/";
+        maquinaRepuestoService.guardar(maquinaRepuesto);
+        return "redirect:/maquinaRepuesto/"+maquinaRepuesto.getMaquina().getIdMaquina();
 
     }
 
-    @GetMapping("/maquinaRepuesto/editar/{idRepuesto}")
+    @GetMapping("/maquinaRepuesto/editar/{idMaquinaRepuesto}")
     public String editarMaquinaRepuesto(MaquinaRepuesto maquinaRepuesto, Model model) {
-        maquinaRepuesto =maquinaRepuestoService.encontrarMaquinaRepuesto(maquinaRepuesto);
+        maquinaRepuesto = maquinaRepuestoService.encontrarMaquinaRepuesto(maquinaRepuesto);
+        var maquinas = maquinaService.listarMaquinas();
+        var repuestos = repuestoService.listarRepuestos();
+        model.addAttribute("repuestos", repuestos);
+        model.addAttribute("maquinas", maquinas);
         model.addAttribute("maquinaRepuesto", maquinaRepuesto);
-        return "modificar";
+        return "modificarMaquinasRepuesto";
     }
 
     @GetMapping("/maquinaRepuesto/eliminar")
     public String eliminarMaquinaRepuesto(MaquinaRepuesto maquinaRepuesto) {
-       maquinaRepuestoService.eliminar(maquinaRepuesto);
+        maquinaRepuestoService.eliminar(maquinaRepuesto);
         return "redirect:/maquinaRepuesto/";
     }
 }
