@@ -68,7 +68,9 @@ public class ControladorMaquinaRepuesto {
 
     @GetMapping("/maquinaRepuesto/eliminar")
     public String eliminarMaquinaRepuesto(MaquinaRepuesto maquinaRepuesto) {
+        maquinaRepuesto=maquinaRepuestoService.encontrarMaquinaRepuesto(maquinaRepuesto);
+        Long idMaquina=maquinaRepuesto.getMaquina().getIdMaquina();
         maquinaRepuestoService.eliminar(maquinaRepuesto);
-        return "redirect:/maquinaRepuesto/";
+        return "redirect:/maquinaRepuesto/"+ idMaquina;
     }
 }

@@ -56,6 +56,13 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>7.0.1.Final</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -77,6 +84,9 @@
             <artifactId>webjars-locator</artifactId>
             <version>0.38</version>
         </dependency>
+        
+
+        
     </dependencies>
 
     <build>
