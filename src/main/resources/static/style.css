@@ -16,8 +16,8 @@
 }
 
 html{
-      min-height: 100%;
-  position: relative;
+    min-height: 100%;
+    position: relative;
 }
 
 body {
@@ -44,7 +44,7 @@ footer {
 
 .container-table{
     width: 90%;
-    background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(66, 66, 66, .9);
     backdrop-filter: blur(15px);
     margin:50px auto;
     box-shadow: 0 0 20px #333;
@@ -78,9 +78,32 @@ footer {
     padding:10px;
     font-size: 1em;
 }
+@media(min-width:601px){
+}
+
+@media(min-width:350px) and(max-width:600px){
+
+    .container-table{
+        display:grid;
+        margin: 5px auto;
+        grid-auto-rows: auto;
+        grid-auto-columns: auto;
+        
+    }
+    .table-header{
+        font-size: .8em;
+    }
+    .table-item{
+        padding:2px;
+        font-size: .7em;
+    }
+    .table-title{
+        font-size: .8em;
+    }
+
+}
 
 /*.table-header:nth-of-type(n+7), .table-item:nth-of-type(n+7){
     background: rgba(40,65,120,.7);
     backdrop-filter: blur(15px);
 }*/
-    

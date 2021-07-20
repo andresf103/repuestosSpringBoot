@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="fragments/head :: head">
@@ -14,8 +14,8 @@
                 <th:block  th:if="${maquinaRepuestos != null and !maquinaRepuestos.empty}">
                     <div class="container-table">
                         <div class="table-title">
-                            <h4 class="col-md-11" style="display: inline-block">[[${maquinaRepuestos[0].maquina.patente}]]</h4>
-                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar}">Agregar</a>
+                            <h4 class="col-md-11" style="display: inline-block">[[${vehiculo.patente}]]</h4>
+                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar/maquina/}+${vehiculo.idMaquina}">Agregar</a>
                         </div>
                         <div class="table-header">ID Repuesto Maquina</div>
                         <div class="table-header">Repuesto</div>
@@ -44,8 +44,8 @@
                 <th:block class="text-center p-2" th:if="${maquinaRepuestos == null or maquinaRepuestos.empty}">
                     <div class="container-table">
                         <div class="table-title">
-                            <h4 class="col-md-11" style="display: inline-block">Lista de maquinas</h4>
-                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar}">Agregar</a>
+                            <h4 class="col-md-11" style="display: inline-block">[[${vehiculo.patente}]]</h4>
+                            <a class="btn btn-primary" th:href="@{/maquinaRepuesto/agregar/maquina/}+${vehiculo.idMaquina}">Agregar</a>
                         </div>
                         <div class="table-header">ID Repuesto Maquina</div>
                         <div class="table-header">Repuesto</div>

@@ -13,18 +13,7 @@
         <main>
             <form id="form" th:action="@{/repuesto/agregar}" th:object="${repuesto}" method="POST" class="was-validated">
                 <input type="hidden" name="idRepuesto" th:field="*{idRepuesto}"/>
-                <section class="py-4 mb-4 bg-dark">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3" >
-                                <a id="submit"  class="btn btn-primary btn-block" >
-                                    <i class="fas fa-plus">Agregar</i></a>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div id="details">
+                <div id="details" class="py-4">
                     <div class="container">
                         <div class="row">
                             <div class="col">
@@ -37,6 +26,10 @@
                                             <label for="Descripcion">[[#{repuesto.descripcion}]]</label>
                                             <input type="text" class="form-control" name="Descripcion" 
                                                    required="true" th:field="*{descripcion}"/>
+                                            <div class="py-4" >
+                                                <a id="submit"  class="col-md-3 btn btn-primary btn-block" >
+                                                    <i class="fas fa-plus">Agregar</i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
