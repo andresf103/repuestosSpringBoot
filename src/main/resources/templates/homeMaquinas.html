@@ -50,6 +50,22 @@
                     </div>
                 </th:block>
                 <th:block class="text-center p-2" th:if="${maquinas == null or maquinas.empty}">
+                    <div class="container-table">
+                        <div class="table-title">
+                            <div class="col-md-11" style="display: inline-block">
+                                <center>
+                                    <h4>Lista de maquinas</h4>
+                                </center>
+                            </div>
+                            <a class="btn btn-primary" th:href="@{/maquina/agregar}">Agregar</a>
+                        </div>
+                        <div class="table-header">PATENTE</div>
+                        <div class="table-header">DESCRIPCIÓN</div>
+                        <div class="table-header">NÚMERO DE SERIE</div>
+                        <div class="table-header">NÚMERO DE MOTOR</div>
+                        <div class="table-header">MODELO</div>
+                        <div class="table-header"></div>
+                        <div class="table-header"></div>
                     <span>la lista esta vacía</span>
                 </th:block>
 
