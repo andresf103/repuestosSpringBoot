@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="fragments/head :: head">
@@ -18,6 +18,11 @@
                                 <center>
                                     <h4>Lista de maquinas</h4>
                                 </center>
+                                <div class="input-group">
+                                    <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Buscar"
+                                           aria-describedby="search-addon" id="buscador"/>
+                                    <button type="button" id="buscar" class="btn btn-outline-primary">Buscar</button>
+                                </div>
                             </div>
                             <a class="btn btn-primary" th:href="@{/maquina/agregar}">Agregar</a>
                         </div>
