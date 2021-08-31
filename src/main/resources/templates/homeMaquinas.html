@@ -14,14 +14,12 @@
                 <th:block  th:if="${maquinas != null and !maquinas.empty}">
                     <div class="container-table">
                         <div class="table-title">
-                            <div class="col-md-11" style="display: inline-block">
-                                <center>
-                                    <h4>Lista de maquinas</h4>
-                                </center>
-                                <div class="input-group">
+                            <div class="col-md-11" style="display: flex">
+                                <h4>Lista de maquinas</h4>
+                                <div class="input-group px-3 w-50 ">
                                     <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Buscar"
                                            aria-describedby="search-addon" id="buscador"/>
-                                    <button type="button" id="buscar" class="btn btn-outline-primary">Buscar</button>
+                                    <button type="button" id="buscar" class="btn btn-primary">Buscar</button>
                                 </div>
                             </div>
                             <a class="btn btn-primary" th:href="@{/maquina/agregar}">Agregar</a>
@@ -36,17 +34,12 @@
                         <th:block th:each="maquina : ${maquinas}">
                             <div class="table-item"><a th:href="@{/maquinaRepuesto/} + ${maquina.idMaquina}" >[[${maquina.patente}]]</a></div>
                             <div class="table-item">[[${maquina.descripcion}]]</div>
-                            <div class="table-item">
-                                [[${maquina.nSerie}]]
-                            </div>
-                            <div class="table-item">
-                                [[${maquina.nMotor}]]
-                            </div>
+                            <div class="table-item">[[${maquina.nSerie}]]</div>
+                            <div class="table-item">[[${maquina.nMotor}]]</div>
                             <div class="table-item">[[${maquina.modelo}]]</div>
-                            <div class="table-item"><a  th:href="@{/maquina/editar/} + ${maquina.idMaquina}"
-                                                        class="btn btn-primary">
-                                    <i class="fas fa-angle-double-right"></i> Editar
-                                </a></div>
+                            <div class="table-item"><a  th:href="@{/maquina/editar/} + ${maquina.idMaquina}" class="btn btn-primary">
+                                    <i class="fas fa-angle-double-right"></i> Editar </a>
+                            </div>
                             <div class="table-item"><a th:href="@{/maquina/eliminar(idMaquina=${maquina.idMaquina})}"
                                                        class="btn btn-dark">
                                     <i class="fas fa-angle-double-right"></i> Eliminar
@@ -77,13 +70,14 @@
             </section>
         </main>
         <footer>
-            <div th:replace="fragments/footer :: footer">
+            <div th:replace="fragments/footer :: footer"></div>
         </footer>
 
 
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="../homeMaquinas.js"></script>
     </body>
 
 </html>
