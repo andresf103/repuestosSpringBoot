@@ -24,7 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("usuario")
                 .password("{noop}usuario")
-                .roles("USER");
+                .roles("USER")
+                .and()
+                .withUser("mario")
+                .password("{noop}oic123")
+                .roles("ADMIN", "USER");
     }
 
     /*para restringir las urls de nuestra aplicacion segun el rol del usuario*/

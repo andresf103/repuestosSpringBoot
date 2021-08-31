@@ -6,7 +6,9 @@ import com.repuestos.servicio.MaquinaRepuestoService;
 import com.repuestos.servicio.MaquinaService;
 import com.repuestos.servicio.RepuestoService;
 import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@Slf4j
 public class ControladorMaquinaRepuesto {
 
     @Autowired
@@ -25,8 +28,9 @@ public class ControladorMaquinaRepuesto {
 
     @GetMapping("/maquinaRepuesto/{idMaquina}")
     String homeMaquinaRepuesto(Maquina maquina, Model model) {
-        
         var maquinaRepuestos = maquinaRepuestoService.listarPorMaquina(maquina);
+        var vehiculo=maquinaService.encontrarMaquina(maquina);
+        model.addAttribute("vehiculo",vehiculo);
         model.addAttribute("maquinaRepuestos", maquinaRepuestos);
         return "homeMaquinaRepuesto";
     }
@@ -42,6 +46,20 @@ public class ControladorMaquinaRepuesto {
         var repuestos = repuestoService.listarRepuestos();
         model.addAttribute("repuestos", repuestos);
         model.addAttribute("maquinas", maquinas);
+        return "modificarMaquinasRepuesto";
+    }
+    
+        @GetMapping("/maquinaRepuesto/agregar/maquina/{maquina.idMaquina}")
+    public String agregarMaquinaRepuestosByPatente(MaquinaRepuesto maquinaRepuesto, Model model) {
+        var maquinas = maquinaService.listarMaquinas();
+        log.info("idMaquina: "+maquinaRepuesto.getMaquina().getIdMaquina());
+        var repuestos = repuestoService.listarRepuestos();
+        model.addAttribute("repuestos", repuestos);
+        model.addAttribute("maquinas", maquinas);
+        if(maquinaRepuesto.getMaquina().getIdMaquina()!=null){
+            var vehiculo=maquinaService.encontrarMaquina(maquinaRepuesto.getMaquina());
+            model.addAttribute("vehiculo",vehiculo);
+        }
         return "modificarMaquinasRepuesto";
     }
 

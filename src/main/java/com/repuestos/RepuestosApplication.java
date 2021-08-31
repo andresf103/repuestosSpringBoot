@@ -19,6 +19,7 @@ public class RepuestosApplication {
         log.info("ejecutando el controlador Spring MVC");
         log.info("usuario que hizo login:" + user);
         return "redirect:/maquina/";
+
     }
 
     @GetMapping("/error")

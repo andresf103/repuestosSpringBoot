@@ -16,17 +16,16 @@
 }
 
 html{
-      min-height: 100%;
-  position: relative;
+    min-height: 100%;
+    position: relative;
+    font-size: 16px;
 }
 
 body {
     margin:0;
     font-family: 'Roboto', sans-serif;
     color:white;
-    background-image: url("/OIC-SA-LOGO.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-color: hsl(214, 35%, 21%);
     margin-bottom: 6rem;
 }
 nav {
@@ -44,7 +43,7 @@ footer {
 
 .container-table{
     width: 90%;
-    background-color: rgba(0, 0, 0, .4);
+    background-color: hsla(214, 65%, 85%, 0.06);
     backdrop-filter: blur(15px);
     margin:50px auto;
     box-shadow: 0 0 20px #333;
@@ -55,13 +54,12 @@ footer {
 .table-title{
     grid-column-start: 1;
     grid-column-end: 8;
-    background: rgba(40,65,120,.1);
-    backdrop-filter: blur(15px);
+    background: hsla(214, 65%, 85%, 0.06);
     display: flex;
     justify-content:center;
     align-items: center;
     font-weight: bold;
-    font-size: 1.9em;
+    font-size: 1.2em;
 }
 
 .table-header, .table-item{
@@ -72,15 +70,38 @@ footer {
 }
 .table-header{
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 .table-item{
     padding:10px;
     font-size: 1em;
+}
+@media(min-width:601px){
+}
+
+@media(min-width:350px) and(max-width:600px){
+
+    .container-table{
+        display:grid;
+        margin: 5px auto;
+        grid-auto-rows: auto;
+        grid-auto-columns: auto;
+        
+    }
+    .table-header{
+        font-size: .8em;
+    }
+    .table-item{
+        padding:2px;
+        font-size: .7em;
+    }
+    .table-title{
+        font-size: .8em;
+    }
+
 }
 
 /*.table-header:nth-of-type(n+7), .table-item:nth-of-type(n+7){
     background: rgba(40,65,120,.7);
     backdrop-filter: blur(15px);
 }*/
-    
