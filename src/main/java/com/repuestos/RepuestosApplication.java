@@ -23,7 +23,6 @@ public class RepuestosApplication {
     }
 
     @GetMapping("/error")
-    /*el nombre del metodo tiene que tener el mismo nombre que la vista eso parece*/
     String error(Model model) {
         return "error";
     }
