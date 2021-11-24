@@ -11,7 +11,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Slf4j
-public abstract class AbstractService {
+public abstract class AbstractRestService {
 
     protected HttpHeaders header;
     protected RestTemplate restTemplate;
@@ -24,7 +24,7 @@ public abstract class AbstractService {
 
     private static String currentToken;
 
-    public AbstractService(){
+    public AbstractRestService(){
         restTemplate=new RestTemplate();
         header=new HttpHeaders();
     }

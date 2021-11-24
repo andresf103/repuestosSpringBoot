@@ -17,11 +17,11 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class SolicitudService extends AbstractService {
+public class SolicitudRestService extends AbstractRestService {
 
 
     @Autowired
-    public SolicitudService(){
+    public SolicitudRestService(){
         super();
     }
 

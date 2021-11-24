@@ -20,7 +20,7 @@ import java.util.List;
 public class SolicitudServiceTest {
 
     @Autowired
-    private SolicitudService solicitudService;
+    private SolicitudRestService solicitudService;
 
     public SolicitudServiceTest(){}
 
