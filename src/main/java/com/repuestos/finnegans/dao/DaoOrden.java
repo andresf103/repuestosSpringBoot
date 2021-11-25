@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DaoOrden extends JpaRepository<Orden,Long> {
 
-    public Orden findByTransaccionId(Long transaccionId);
+    Orden findByTransaccionId(Long transaccionId);
 }

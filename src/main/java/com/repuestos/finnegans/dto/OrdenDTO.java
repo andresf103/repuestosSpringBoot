@@ -12,12 +12,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class OrdenDTO implements Serializable {
-//todas las llamadas se deben hacer a api.teamplace.finneg.com/api/
-// https://2.teamplace.finneg.com/BSA/api/reports/tracking?
-// domain=oic&PARAMWEBREPORT_FechaDesde=20211111
-// &PARAMWEBREPORT_FechaHasta=20211111
-// &PARAMWEBREPORT_Empresa=OICSA1
-// &example=1&
+
     @JsonProperty("TRANSACCIONID")
     private Long transaccionId;
     @JsonProperty("TIPO_DOCUMENTO")
