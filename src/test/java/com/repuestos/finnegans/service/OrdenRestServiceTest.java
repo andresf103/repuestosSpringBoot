@@ -3,6 +3,7 @@ package com.repuestos.finnegans.service;
 import com.repuestos.RepuestosApplication;
 import com.repuestos.finnegans.dto.OrdenDTO;
 import com.repuestos.finnegans.dto.SolicitudDTO;
+import com.repuestos.finnegans.utilidades.ReportPdf;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +29,16 @@ class OrdenRestServiceTest {
 
     @Test
     void findAllFromToday() {
-        List<OrdenDTO> socio= null;
+        List<OrdenDTO> ordenes= null;
         try {
-            socio = ordenRestService.findAllFromToday();
+            ordenes = ordenRestService.findAllFromToday();
+            ReportPdf pdfs=new ReportPdf();
+            List<String>ids=ordenRestService.idsOrders();
+            log.info(ids.toString());
+            pdfs.downloadAllOrders(ids);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        log.info(socio.toString());
+        log.info(ordenes.toString());
     }
 }

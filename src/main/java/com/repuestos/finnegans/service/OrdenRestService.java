@@ -3,6 +3,7 @@ package com.repuestos.finnegans.service;
 import com.repuestos.finnegans.EndPoints;
 import com.repuestos.finnegans.dto.OrdenDTO;
 import com.repuestos.finnegans.dto.SolicitudDTO;
+import com.repuestos.finnegans.entity.Orden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,18 +14,17 @@ import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class OrdenRestService extends AbstractRestService {
-
+private OrdenEntityService ordenEntityService;
     @Autowired
-    public OrdenRestService() {
+    public OrdenRestService(OrdenEntityService ordenEntityService) {
         super();
+        this.ordenEntityService=ordenEntityService;
     }
 
     public List<OrdenDTO> findAllFromToday() throws URISyntaxException {
@@ -49,6 +49,19 @@ public class OrdenRestService extends AbstractRestService {
             log.error("There was an error\n" + response.getBody());
             throw new RuntimeException("Hubo un error");
         }
+    }
+    public List<String> idsOrders() throws URISyntaxException {
+        List<OrdenDTO> ordenes=findAllFromToday();
+        List<OrdenDTO> ordenesADevolver=new ArrayList<>();
+        ordenes.stream().forEach(ordenDTO -> {
+            if(ordenEntityService.findByTransaccionId(ordenDTO.getTransaccionId())==null){
+                ordenEntityService.save(new Orden(ordenDTO));
+                ordenesADevolver.add(ordenDTO);
+            }
+        });
+        return ordenesADevolver.stream()
+                .map(ordenDTO ->ordenDTO.getTransaccionId().toString())
+                .collect(Collectors.toList());
     }
 
 

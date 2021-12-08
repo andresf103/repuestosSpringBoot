@@ -26,7 +26,8 @@ public class OrdenEntityService {
     }
 
     public Orden findByTransaccionId(Long transaccionId) {
-        return daoOrden.findByTransaccionId(transaccionId);
+        Orden orden = daoOrden.findByTransaccionId(transaccionId).orElse(null);
+        return orden;
     }
 
     public List<Orden> findAll() {

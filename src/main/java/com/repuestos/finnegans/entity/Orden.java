@@ -2,6 +2,7 @@ package com.repuestos.finnegans.entity;
 
 
 import com.repuestos.finnegans.dto.OrdenDTO;
+import com.repuestos.finnegans.dto.TipoDocumento;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,14 +16,15 @@ import java.io.Serializable;
 public class Orden implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transaccionId;
-    private String tipoDocumento;
+
+    @Enumerated(EnumType.STRING)
+    private TipoDocumento tipoDocumento;
     private String empresa;
     private Long transaccionIdInicial;
     private String comprobante;
 
-    Orden(OrdenDTO ordenDTO){
+    public Orden(OrdenDTO ordenDTO){
         valueOf(ordenDTO);
     }
 
@@ -30,7 +32,7 @@ public class Orden implements Serializable {
         OrdenDTO dto=new OrdenDTO();
         dto.setComprobante(comprobante);
         dto.setEmpresa(empresa);
-        dto.setTipoDocumento(tipoDocumento);
+        dto.setTipoDocumento(tipoDocumento.getDocumento());
         dto.setTransaccionId(transaccionId);
         dto.setTransaccionIdInicial(transaccionIdInicial);
         return dto;
@@ -39,7 +41,7 @@ public class Orden implements Serializable {
     public void valueOf(OrdenDTO ordenDTO){
         comprobante=ordenDTO.getComprobante();
         transaccionId=ordenDTO.getTransaccionId();
-        tipoDocumento=ordenDTO.getTipoDocumento();
+        tipoDocumento=TipoDocumento.value(ordenDTO.getTipoDocumento());
         empresa=ordenDTO.getEmpresa();
         transaccionIdInicial=ordenDTO.getTransaccionIdInicial();
     }
