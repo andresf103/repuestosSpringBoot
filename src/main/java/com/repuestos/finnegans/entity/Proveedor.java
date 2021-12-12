@@ -17,8 +17,6 @@ public class Proveedor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProveedor;
     @NotEmpty
-    private String cuit;
-    @NotEmpty
     private String nombre;
     @NotEmpty
     private String email;

@@ -2,8 +2,7 @@ package com.repuestos.finnegans.service;
 
 import com.repuestos.RepuestosApplication;
 import com.repuestos.finnegans.dto.OrdenDTO;
-import com.repuestos.finnegans.dto.SolicitudDTO;
-import com.repuestos.finnegans.utilidades.ReportPdf;
+import com.repuestos.finnegans.utilidades.DownloadPDFOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,8 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URISyntaxException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
@@ -26,16 +24,18 @@ class OrdenRestServiceTest {
 
     @Autowired
     private OrdenRestService ordenRestService;
+    @Autowired
+    private OrdenEntityService ordenEntityService;
 
     @Test
     void findAllFromToday() {
         List<OrdenDTO> ordenes= null;
         try {
             ordenes = ordenRestService.findAllFromToday();
-            ReportPdf pdfs=new ReportPdf();
+            DownloadPDFOrder pdfs=new DownloadPDFOrder();
             List<String>ids=ordenRestService.idsOrders();
             log.info(ids.toString());
-            pdfs.downloadAllOrders(ids);
+            pdfs.downloadAllOrders(ordenEntityService.findAll().stream().map(orden -> orden.getTransaccionId().toString()).collect(Collectors.toList()));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

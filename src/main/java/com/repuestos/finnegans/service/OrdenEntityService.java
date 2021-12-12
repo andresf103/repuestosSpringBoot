@@ -1,6 +1,8 @@
 package com.repuestos.finnegans.service;
 
+import com.repuestos.finnegans.dao.DaoMail;
 import com.repuestos.finnegans.dao.DaoOrden;
+import com.repuestos.finnegans.entity.Mail;
 import com.repuestos.finnegans.entity.Orden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +13,17 @@ import java.util.List;
 public class OrdenEntityService {
 
     private DaoOrden daoOrden;
+    private DaoMail daoMail;
 
     @Autowired
-    OrdenEntityService(DaoOrden daoOrden) {
+    OrdenEntityService(DaoOrden daoOrden,DaoMail daoMail) {
         this.daoOrden = daoOrden;
+        this.daoMail=daoMail;
     }
 
     public Orden save(Orden orden) {
+        Mail mail=new Mail(orden);
+        daoMail.save(mail);
         return daoOrden.save(orden);
     }
 

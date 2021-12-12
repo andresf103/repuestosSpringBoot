@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.repuestos.RepuestosApplication;
+
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -22,16 +23,16 @@ public class SolicitudServiceTest {
     @Autowired
     private SolicitudRestService solicitudService;
 
-    public SolicitudServiceTest(){}
+    public SolicitudServiceTest() {
+    }
 
     @Test
-    public void testFindAllFromToday(){
-        List<SolicitudDTO> socio= null;
+    public void testFindAllFromToday() {
+
         try {
-            socio = solicitudService.findAllFromToday();
+            solicitudService.findAllFromToday();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        log.info(socio.toString());
     }
 }

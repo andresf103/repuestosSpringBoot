@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.repuestos.finnegans.dto.SolicitudDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.FieldValue;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -14,13 +16,16 @@ import java.io.Serializable;
 @Table(name="solicitud")
 public class Solicitud implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+
     private Long transactionId;
     private Long numeroInterno;
+    @Column(length=500)
     private String descripcion;
+    @Column(length=50)
     private String nombreUsuarioAlta;
 
-    Solicitud(SolicitudDTO solicitudDTO){
+    public Solicitud(SolicitudDTO solicitudDTO){
         valueOf(solicitudDTO);
     }
 

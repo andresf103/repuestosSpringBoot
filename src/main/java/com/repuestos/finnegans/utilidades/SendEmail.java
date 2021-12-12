@@ -1,46 +1,55 @@
 package com.repuestos.finnegans.utilidades;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.Properties;
 
+@Slf4j
 public class SendEmail {
-    public void send() {
-        final String username = "andresoicsa@gmail.com";
-        final String password = "condor931";
 
-        Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+    @Bean
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
 
-        Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+        mailSender.setUsername("andresoicsa@gmail.com");
+        mailSender.setPassword("condor931");
 
-        try {
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("andresoicsa@gmail.com"));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse("andresoicsa@gmail.com, andresfernandez103@gmail.com")
-            );
-            message.setSubject("probando el email");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n Please do not spam my email!");
+        return mailSender;
+    }
 
-            Transport.send(message);
+    // usuarioFinnegan proveedor y file
+    public void send(String emailUsuarioFinnegan, String emailProveedor, String pathAdjunto) throws Exception {
 
-            System.out.println("Done");
+        JavaMailSender emailSender = getJavaMailSender();
 
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setFrom("noreply@oicsa.com");
+        helper.setTo(emailUsuarioFinnegan);
+        helper.setCc(emailProveedor);
+        helper.setSubject("Orden de compra");
+        helper.setText("Hola adjunto orden de compra, pongo en copia al encargado para coordinar la compra de la misma.\n\n Saludos cordiales.");
+
+        FileSystemResource file = new FileSystemResource(new File(pathAdjunto));
+        helper.addAttachment("orden.pdf", file);
+        emailSender.send(message);
+        log.info("Done");
 
     }
 

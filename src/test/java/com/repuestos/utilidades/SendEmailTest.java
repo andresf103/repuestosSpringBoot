@@ -7,6 +7,10 @@ class SendEmailTest {
     @Test
     void sendEmail() {
         SendEmail sendEmail=new SendEmail();
-        sendEmail.send();
+        try {
+            sendEmail.send("andresfernandez103@gmail.com","andresoicsa@gmail.com","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

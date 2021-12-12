@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProveedorEntityService {
@@ -27,8 +28,8 @@ public class ProveedorEntityService {
         return daoProveedor.save(proveedor);
     }
 
-    public Proveedor findByCuit(String cuit) {
-        return daoProveedor.findByCuit(cuit);
+    public Optional<Proveedor> findByNombre(String nombre) {
+        return daoProveedor.findByNombre(nombre);
     }
 
     public List<Proveedor> findAll() {

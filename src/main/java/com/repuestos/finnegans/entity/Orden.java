@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -16,6 +17,7 @@ import java.io.Serializable;
 public class Orden implements Serializable {
 
     @Id
+    @NotNull
     private Long transaccionId;
 
     @Enumerated(EnumType.STRING)

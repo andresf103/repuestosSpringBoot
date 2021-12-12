@@ -12,6 +12,7 @@ public enum EndPoints {
             "&PARAMWEBREPORT_FechaDesde=%s" +
             "&PARAMWEBREPORT_FechaHasta=%s" +
             "&PARAMEmpresa=OICSA1"),
+    USUARIOS("https://api.teamplace.finneg.com/api/reports/UsuarioAndres?domain=oic"),
     RENEW_TOKEN("https://api.teamplace.finneg.com/api/oauth/token?grant_type=refresh_token&client_id=%s&client_secret=%s&refresh_token=%s");
 
     private String url;

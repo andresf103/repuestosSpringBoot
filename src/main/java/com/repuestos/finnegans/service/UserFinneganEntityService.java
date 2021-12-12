@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserFinneganEntityService {
@@ -27,7 +28,7 @@ public class UserFinneganEntityService {
         return daoUserFinnegan.save(userFinnegan);
     }
 
-    public UserFinnegan findByNombre(String nombre) {
+    public Optional<UserFinnegan> findByNombre(String nombre) {
         return daoUserFinnegan.findByNombre(nombre);
     }
 
