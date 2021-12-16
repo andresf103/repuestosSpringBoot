@@ -1,8 +1,6 @@
 package com.repuestos.finnegans.service;
 
-import com.repuestos.finnegans.dao.DaoOrden;
 import com.repuestos.finnegans.dao.DaoProveedor;
-import com.repuestos.finnegans.entity.Orden;
 import com.repuestos.finnegans.entity.Proveedor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

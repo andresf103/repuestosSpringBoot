@@ -1,5 +1,6 @@
 package com.repuestos.finnegans.utilidades;
 
+import com.repuestos.finnegans.entity.Solicitud;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
@@ -33,7 +34,7 @@ public class SendEmail {
     }
 
     // usuarioFinnegan proveedor y file
-    public void send(String emailUsuarioFinnegan, String emailProveedor, String pathAdjunto) throws Exception {
+    public void send(Solicitud solicitud, String emailProveedor,String emailUsuarioFinnegan, String pathAdjunto) throws Exception {
 
         JavaMailSender emailSender = getJavaMailSender();
 
@@ -43,11 +44,11 @@ public class SendEmail {
         helper.setFrom("noreply@oicsa.com");
         helper.setTo(emailUsuarioFinnegan);
         helper.setCc(emailProveedor);
-        helper.setSubject("Orden de compra");
-        helper.setText("Hola adjunto orden de compra, pongo en copia al encargado para coordinar la compra de la misma.\n\n Saludos cordiales.");
+        helper.setSubject("Orden de compra de la solicitud " + solicitud.getNumeroInterno());
+        helper.setText("Hola,\n Adjunto orden de compra, correspondiente a la solicitud Nº" + solicitud.getNumeroInterno() + ", pongo en copia al encargado "+ solicitud.getNombreUsuarioAlta() +" para coordinar la compra de la misma.\n\n Saludos cordiales.");
 
         FileSystemResource file = new FileSystemResource(new File(pathAdjunto));
-        helper.addAttachment("orden.pdf", file);
+        helper.addAttachment("orden "+file.getFilename(), file);
         emailSender.send(message);
         log.info("Done");
 

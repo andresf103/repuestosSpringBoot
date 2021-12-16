@@ -31,7 +31,7 @@ public class SolicitudRestService extends AbstractRestService {
         super();
         this.solicitudEntityService=solicitudEntityService;
     }
-    @Scheduled(fixedDelayString = "${syncSolicitudesInterval}")
+    @Scheduled(fixedDelayString = "${syncSolicitudesInterval}",initialDelay = 180000L)
     public void findAllFromToday() throws URISyntaxException {
 
         Date today = new Date();

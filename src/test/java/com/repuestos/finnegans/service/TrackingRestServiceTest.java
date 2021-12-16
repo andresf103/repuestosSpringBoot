@@ -1,7 +1,8 @@
 package com.repuestos.finnegans.service;
 
 import com.repuestos.RepuestosApplication;
-import com.repuestos.finnegans.dto.OrdenDTO;
+import com.repuestos.finnegans.dto.TrackingDTO;
+import com.repuestos.finnegans.entity.Tracking;
 import com.repuestos.finnegans.utilidades.DownloadPDFOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -20,22 +21,22 @@ import java.util.stream.Collectors;
 @ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {RepuestosApplication.class})
-class OrdenRestServiceTest {
+class TrackingRestServiceTest {
 
     @Autowired
-    private OrdenRestService ordenRestService;
+    private TrackingRestService trackingRestService;
     @Autowired
-    private OrdenEntityService ordenEntityService;
+    private TrackingEntityService trackingEntityService;
 
     @Test
     void findAllFromToday() {
-        List<OrdenDTO> ordenes= null;
+        List<TrackingDTO> ordenes= null;
         try {
-            ordenes = ordenRestService.findAllFromToday();
+            ordenes = trackingRestService.findAllFromToday();
             DownloadPDFOrder pdfs=new DownloadPDFOrder();
-            List<String>ids=ordenRestService.idsOrders();
+            List<TrackingDTO>ids= trackingRestService.idsOrders();
             log.info(ids.toString());
-            pdfs.downloadAllOrders(ordenEntityService.findAll().stream().map(orden -> orden.getTransaccionId().toString()).collect(Collectors.toList()));
+            pdfs.downloadAllOrders(trackingEntityService.findAll().stream().map(Tracking::toDto).collect(Collectors.toList()));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

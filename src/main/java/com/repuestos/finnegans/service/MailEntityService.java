@@ -2,7 +2,7 @@ package com.repuestos.finnegans.service;
 
 import com.repuestos.finnegans.dao.DaoMail;
 import com.repuestos.finnegans.entity.Mail;
-import com.repuestos.finnegans.entity.Orden;
+import com.repuestos.finnegans.entity.Tracking;
 import com.repuestos.finnegans.entity.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,8 @@ public class MailEntityService {
     MailEntityService(DaoMail daoMail) {
         this.daoMail = daoMail;
     }
-    public Mail findByOrder(Orden orden){
-        return daoMail.findByOrden(orden).orElse(null);
+    public Mail findByTracking(Tracking tracking){
+        return daoMail.findByTracking(tracking).orElse(null);
     }
     public Mail save(Mail mail) {
         return daoMail.save(mail);

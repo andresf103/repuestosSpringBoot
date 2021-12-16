@@ -1,9 +1,8 @@
 package com.repuestos.finnegans.utilidades;
 
 import com.microsoft.playwright.*;
+import com.repuestos.finnegans.dto.TrackingDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 
 import java.io.File;
@@ -23,23 +22,32 @@ public class DownloadPDFOrder {
     private static final String downloadPath="/home/andres/Descargas";
 
 
-    private void descargarOrdenDeCompra(Page currentPage, BrowserContext context, String idOrden) {
+    private void descargarOrdenDeCompra(Page currentPage, BrowserContext context, TrackingDTO orden) {
 /**aca necesito sacar la informacion de la solicitud -> usuario ->email
  * orden de compra-> empresa->email
  * para esto del tracking de la orden de compra necesito conseguir el id-transaction de la solicitud
  * y con esa informacion conseguir la info de la solicitud para conseguir el usuario.
  */
         Page pageForDownload = context.newPage();
-        String constructUrl = String.format(URL_PARTIAL, idOrden) + URL_PARTIAL_FINAL;
+        String constructUrl = String.format(URL_PARTIAL, orden.getTransactionIdInicial()) + URL_PARTIAL_FINAL;
         try {
             pageForDownload.navigate(constructUrl);
         } catch (Exception e) {
+            log.error("Error al descargar" + e.getMessage());
         }
         try {
-            renameFileOrdenDeCompra(idOrden);
+            Thread.sleep(1000l);
+
+        try {
+            renameFileOrdenDeCompra(orden.getOrigen());
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.info("error al renombrar el archivo" + e.getMessage());
         }
+            Thread.sleep(1000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         pageForDownload.close();
     }
 
@@ -56,7 +64,7 @@ public class DownloadPDFOrder {
         }
     }
 
-    public void downloadAllOrders(List<String> ordenesDeCompra) {
+    public void downloadAllOrders(List<TrackingDTO> ordenesDeCompra) {
         List<String> argumentos = new ArrayList<>();
         argumentos.add("--profile-directory=\"Profile 1\"");
 

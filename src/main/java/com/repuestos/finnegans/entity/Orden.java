@@ -1,12 +1,13 @@
 package com.repuestos.finnegans.entity;
 
-
 import com.repuestos.finnegans.dto.OrdenDTO;
-import com.repuestos.finnegans.dto.TipoDocumento;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,33 +19,18 @@ public class Orden implements Serializable {
 
     @Id
     @NotNull
-    private Long transaccionId;
+    private Long transactionId;
 
-    @Enumerated(EnumType.STRING)
-    private TipoDocumento tipoDocumento;
-    private String empresa;
-    private Long transaccionIdInicial;
-    private String comprobante;
+    @Column(length=500)
+    private String descripcion;
+    @Column(length=150)
+    private String proveedor;
+    private String numeroOrden;
 
     public Orden(OrdenDTO ordenDTO){
-        valueOf(ordenDTO);
-    }
-
-    public OrdenDTO toDto(){
-        OrdenDTO dto=new OrdenDTO();
-        dto.setComprobante(comprobante);
-        dto.setEmpresa(empresa);
-        dto.setTipoDocumento(tipoDocumento.getDocumento());
-        dto.setTransaccionId(transaccionId);
-        dto.setTransaccionIdInicial(transaccionIdInicial);
-        return dto;
-    }
-
-    public void valueOf(OrdenDTO ordenDTO){
-        comprobante=ordenDTO.getComprobante();
-        transaccionId=ordenDTO.getTransaccionId();
-        tipoDocumento=TipoDocumento.value(ordenDTO.getTipoDocumento());
-        empresa=ordenDTO.getEmpresa();
-        transaccionIdInicial=ordenDTO.getTransaccionIdInicial();
+        this.transactionId=ordenDTO.getTransactionId();
+        this.descripcion=ordenDTO.getDescripcion();
+        this.proveedor=ordenDTO.getProveedor();
+        this.numeroOrden=ordenDTO.getNumeroOrden();
     }
 }

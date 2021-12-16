@@ -3,14 +3,17 @@ package com.repuestos.finnegans.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.repuestos.finnegans.dto.SolicitudDTO;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.bytebuddy.implementation.bind.annotation.FieldValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name="solicitud")

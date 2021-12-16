@@ -21,12 +21,12 @@ public class Mail implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
     @OneToOne(cascade = CascadeType.ALL)
-    private Orden orden;
+    private Tracking tracking;
 
-    public Mail(Orden orden){
+    public Mail(Tracking tracking){
         created=new Date().toInstant();
         status=Status.NEW;
-        this.orden=orden;
+        this.tracking = tracking;
     }
 }
 
