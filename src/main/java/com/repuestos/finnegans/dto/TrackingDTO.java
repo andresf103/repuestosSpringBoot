@@ -25,5 +25,7 @@ public class TrackingDTO implements Serializable {
     private String comprobante;
     @JsonProperty("ORIGEN")
     private String origen;
+    @JsonProperty("NUMERO")
+    private String numero;
 
 }

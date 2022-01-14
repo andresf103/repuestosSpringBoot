@@ -48,8 +48,8 @@ public class TrackingRestService extends AbstractRestService {
             List<TrackingDTO> newList=new ArrayList<>();
 
             List<TrackingDTO> listSolicitud=list.stream().filter(ordenDTO1->
-                    ordenDTO1.getTipoDocumento().equals(TipoDocumento.SOLICITUD_REPUESTOS.getDocumento())
-                            ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.SOLICITUD.getDocumento()))
+                    ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA_REPUESTOS.getDocumento())
+                            ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA.getDocumento()))
                     .collect(Collectors.toList());
             return listSolicitud;
         } else {

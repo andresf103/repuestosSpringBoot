@@ -27,6 +27,7 @@ public class Tracking implements Serializable {
     private Long transactionIdInicial;
     private String comprobante;
     private String origen;
+    private String numero;
 
     public Tracking(TrackingDTO trackingDTO){
         valueOf(trackingDTO);
@@ -39,6 +40,7 @@ public class Tracking implements Serializable {
         dto.setTipoDocumento(tipoDocumento.getDocumento());
         dto.setTransactionId(transactionId);
         dto.setTransactionIdInicial(transactionIdInicial);
+        dto.setNumero(numero);
         dto.setOrigen(origen);
         return dto;
     }
@@ -50,5 +52,6 @@ public class Tracking implements Serializable {
         empresa= trackingDTO.getEmpresa();
         transactionIdInicial= trackingDTO.getTransactionIdInicial();
         origen= trackingDTO.getOrigen();
+        numero= trackingDTO.getNumero();
     }
 }

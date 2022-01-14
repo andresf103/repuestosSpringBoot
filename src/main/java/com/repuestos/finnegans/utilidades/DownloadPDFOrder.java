@@ -29,7 +29,7 @@ public class DownloadPDFOrder {
  * y con esa informacion conseguir la info de la solicitud para conseguir el usuario.
  */
         Page pageForDownload = context.newPage();
-        String constructUrl = String.format(URL_PARTIAL, orden.getTransactionIdInicial()) + URL_PARTIAL_FINAL;
+        String constructUrl = String.format(URL_PARTIAL, orden.getTransactionId()) + URL_PARTIAL_FINAL;
         try {
             pageForDownload.navigate(constructUrl);
         } catch (Exception e) {
@@ -39,7 +39,7 @@ public class DownloadPDFOrder {
             Thread.sleep(1000l);
 
         try {
-            renameFileOrdenDeCompra(orden.getOrigen());
+            renameFileOrdenDeCompra(orden.getNumero());
         } catch (IOException e) {
             log.info("error al renombrar el archivo" + e.getMessage());
         }

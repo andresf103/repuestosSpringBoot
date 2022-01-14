@@ -72,6 +72,10 @@ public class SendingEmailWithAttachment {
         }
         log.info(ordenes.toString());
     }
+    /*
+    * todo:por cada solicitud solo envia la primer orden en caso de que
+    *  tenga mas de una orden asociada a la solicitud
+    * debemos encontrar la manera de que considere todas las ordenes*/
 @Scheduled(fixedDelay = 86400000L, initialDelay =86400000L)
 public void obteniendoProveedores(){
     try {proveedorRestService.findAll();
@@ -92,18 +96,18 @@ public void obteniendoProveedores(){
         log.info(mails.toString());
         mails.forEach(mail -> {
             Optional<Solicitud> solicitud = solicitudEntityService.findByTransaccionId(mail.getTracking()
-                    .getTransactionId());
+                    .getTransactionIdInicial());
             Optional<UserFinnegan> userFinnegan = userFinneganEntityService.findByNombre(solicitud.isPresent() ? solicitud.get().getNombreUsuarioAlta() : "noencontrado");
             String emailUsuario = !userFinnegan.isPresent() ? "andresoicsa@gmail.com" : userFinnegan.get().getEmail();
-            Long transactionIdOrden=mail.getTracking().getTransactionIdInicial();
+            Long transactionIdOrden=mail.getTracking().getTransactionId();
             Optional<Orden> orden=ordenEntityService.findByTransactionId(transactionIdOrden);
             Optional<Proveedor> proveedor = proveedorEntityService.findByNombre(orden.isPresent()?orden.get().getProveedor():"noencontrado");
             String emailProveedor = !proveedor.isPresent() ? "andresoicsa@gmail.com" : proveedor.get().getEmail();
             emailProveedor=emailProveedor.isEmpty()?"andresoicsa@gmail.com":emailProveedor;
             SendEmail sendEmail = new SendEmail();
             try {
-                sendEmail.send(solicitud.get(), emailProveedor, emailUsuario, downloadPath + "/ordenes/" + mail.getTracking()
-                        .getOrigen() + ".pdf");
+                sendEmail.send(solicitud.get(), emailProveedor, emailUsuario, downloadPath + "/ordenes/"
+                        + mail.getTracking().getNumero() + ".pdf");
                 mail.setSendDate(new Date().toInstant());
                 mail.setStatus(Status.COMPLETED);
             } catch (Exception e) {
