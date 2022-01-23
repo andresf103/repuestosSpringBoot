@@ -112,7 +112,8 @@ public void obteniendoProveedores(){
                 mail.setStatus(Status.COMPLETED);
             } catch (Exception e) {
                 e.printStackTrace();
-                mail.setStatus(Status.FAILED);
+                mail.setStatus(mail.getTracking().getTransactionId()
+                        .equals(mail.getTracking().getTransactionIdInicial())?Status.COMPLETED:Status.FAILED);
             } finally {
                 mailEntityService.update(mail);
             }
