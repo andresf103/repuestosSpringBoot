@@ -19,7 +19,13 @@ public enum EndPoints {
             "&PARAMWEBREPORT_FechaHasta=%s" +
             "&PARAMEmpresa=OICSA1"),
     PROVEEDORES("https://api.teamplace.finneg.com/api/reports/proveedoresandres?domain=oic"),
-    RENEW_TOKEN("https://api.teamplace.finneg.com/api/oauth/token?grant_type=refresh_token&client_id=%s&client_secret=%s&refresh_token=%s");
+    RENEW_TOKEN("https://api.teamplace.finneg.com/api/oauth/token?grant_type=refresh_token&client_id=%s&client_secret=%s&refresh_token=%s"),
+    ORDENDETAIL("https://api.teamplace.finneg.com/api/reports/analisisdeordenes?" +
+            "domain=oic" +
+            "&PARAMWEBREPORT_FechaDesde=%s" +
+            "&PARAMWEBREPORT_IncluirConceptosCalculados=true" +
+            "&PARAMWEBREPORT_FechaHasta=%s" +
+            "&PARAMWEBREPORT_Empresa=OICSA1");
 
     private String url;
 

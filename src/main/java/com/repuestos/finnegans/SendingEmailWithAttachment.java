@@ -56,7 +56,7 @@ public class SendingEmailWithAttachment {
         this.proveedorRestService = proveedorRestService;
     }
 
-    @Scheduled(fixedDelayString = "${downloadOrdersInterval}")
+    //@Scheduled(fixedDelayString = "${downloadOrdersInterval}")
     public void descargarPdfs() {
         List<TrackingDTO> ordenes = null;
         try {
@@ -76,14 +76,14 @@ public class SendingEmailWithAttachment {
     * todo:por cada solicitud solo envia la primer orden en caso de que
     *  tenga mas de una orden asociada a la solicitud
     * debemos encontrar la manera de que considere todas las ordenes*/
-@Scheduled(fixedDelay = 86400000L, initialDelay =86400000L)
+//@Scheduled(fixedDelay = 86400000L, initialDelay =86400000L)
 public void obteniendoProveedores(){
     try {proveedorRestService.findAll();
     } catch (URISyntaxException e) {
         e.printStackTrace();
     }
 }
-    @Scheduled(fixedDelayString = "${sendingEmailInterval}", initialDelay = 900000L)
+    //@Scheduled(fixedDelayString = "${sendingEmailInterval}", initialDelay = 900000L)
     public void sendEmails() {
         try {
             solicitudRestService.findAllFromToday();

@@ -22,6 +22,8 @@ public class SolicitudServiceTest {
 
     @Autowired
     private SolicitudRestService solicitudService;
+    @Autowired
+    private OrdenRestService ordenRestService;
 
     public SolicitudServiceTest() {
     }
@@ -30,7 +32,8 @@ public class SolicitudServiceTest {
     public void testFindAllFromToday() {
 
         try {
-            solicitudService.findAllFromToday();
+            ordenRestService.findAllFromToday();
+            //solicitudService.findAllFromToday();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
