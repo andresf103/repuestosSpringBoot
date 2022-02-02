@@ -36,27 +36,9 @@ public class HistorialVehicular {
         this.maquinaService = maquinaService;
     }
 
-    public void guardarDetalleOrden(OrdenDetailDTO ordenDetailDTO) {
-        Optional<Orden> orden = ordenEntityService.findByTransactionId(ordenDetailDTO.getTransactionId());
-        orden.ifPresent(value -> {
-            if(value.getOrdenDetail().isEmpty()){
-                entityService.save(new OrdenDetail(ordenDetailDTO, value));
-            }
-        });
-    }
-
     public List<OrdenDetail> obtenerDetalleOrden(Orden orden) throws URISyntaxException {
-        if (orden.getOrdenDetail().isEmpty()) {
             List<OrdenDetail> listOrdenDetail = ordenDetailRestService.findByOrden(orden);
-            //log.info(listOrdenDetail.toString());
-            if (!listOrdenDetail.isEmpty()) {
-                for (OrdenDetail detail : listOrdenDetail) {
-                    guardarDetalleOrden(detail.toDTO());
-                }
-                orden.setOrdenDetail(listOrdenDetail);
-            }
-        }
-        return orden.getOrdenDetail();
+        return listOrdenDetail;
     }
 
     //dada una lista de patentes vehiculares comparar con una lista de ordenes de compra y clasificar el historial

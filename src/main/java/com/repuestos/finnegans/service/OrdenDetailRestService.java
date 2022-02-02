@@ -51,7 +51,6 @@ public class OrdenDetailRestService extends AbstractRestService {
             };
             ResponseEntity<List<OrdenDetailDTO>> response = executeRequest(url, HttpMethod.GET, ordenList);
             if (HttpStatus.OK.equals(response.getStatusCode())) {
-                //log.info(response.getBody().toString());
                 List<OrdenDetailDTO> list = response.getBody();
                 list.forEach(ordenDetailDTO -> {
                     if (orden.getTransactionId().equals(ordenDetailDTO.getTransactionId())) {
