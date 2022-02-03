@@ -1,8 +1,9 @@
 package com.repuestos.finnegans.service;
 
 import com.repuestos.finnegans.EndPoints;
-import com.repuestos.finnegans.dto.TrackingDTO;
 import com.repuestos.finnegans.dto.TipoDocumento;
+import com.repuestos.finnegans.dto.TrackingDTO;
+import com.repuestos.finnegans.entity.Orden;
 import com.repuestos.finnegans.entity.Tracking;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,26 @@ import java.util.stream.Collectors;
 @Service
 public class TrackingRestService extends AbstractRestService {
     private final TrackingEntityService trackingEntityService;
+    private final OrdenEntityService ordenEntityService;
 
     @Autowired
-    public TrackingRestService(TrackingEntityService trackingEntityService) {
+    public TrackingRestService(TrackingEntityService trackingEntityService, OrdenEntityService ordenEntityService) {
         super();
         this.trackingEntityService = trackingEntityService;
+        this.ordenEntityService = ordenEntityService;
+    }
+
+    public void setOrdenFacturada(List<TrackingDTO> lista) {
+        lista.forEach(trackingDTO -> {
+            Optional<Orden> ordenOptional=ordenEntityService
+                    .findByTransactionId(trackingDTO.getTransactionIdInicial());
+            if(ordenOptional.isPresent()){
+                Orden orden=ordenOptional.get();
+                orden.setFacturado(true);
+                ordenEntityService.save(orden);
+            }
+        } );
+
     }
 
     public List<TrackingDTO> findAllFromToday() throws URISyntaxException {
@@ -45,32 +61,33 @@ public class TrackingRestService extends AbstractRestService {
         if (HttpStatus.OK.equals(response.getStatusCode())) {
             log.info(response.getBody().toString());
             List<TrackingDTO> list = response.getBody();
-            List<TrackingDTO> newList=new ArrayList<>();
 
-            List<TrackingDTO> listSolicitud=list.stream().filter(ordenDTO1->
+            List <TrackingDTO> listTrackingFacturas=list.stream().filter(ordenDTO1->
+                            ordenDTO1.getTipoDocumento().equals(TipoDocumento.FACTURA_DE_COMPRA.getDocumento())
+                                    ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA_REPUESTOS.getDocumento()))
+                    .collect(Collectors.toList());
+            setOrdenFacturada(listTrackingFacturas);
+
+            List<TrackingDTO> listTracking=list.stream().filter(ordenDTO1->
                     ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA_REPUESTOS.getDocumento())
                             ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA.getDocumento()))
                     .collect(Collectors.toList());
-            return listSolicitud;
+            return listTracking;
         } else {
             log.error("There was an error\n" + response.getBody());
             throw new RuntimeException("Hubo un error");
         }
     }
 
-    public List<TrackingDTO> idsOrders() throws URISyntaxException {
+    public List<TrackingDTO> listTracking() throws URISyntaxException {
         List<TrackingDTO> trackings = findAllFromToday();
         List<TrackingDTO> ordenesADevolver = new ArrayList<>();
         trackings.forEach(trackingDTO -> {
             if (trackingEntityService.findByTransactionId(trackingDTO.getTransactionId()) == null) {
                 trackingEntityService.save(new Tracking(trackingDTO));
-
                 ordenesADevolver.add(trackingDTO);
             }
         });
         return ordenesADevolver;
-        /*return ordenesADevolver.stream()
-                .map(ordenDTO -> ordenDTO.getTransactionIdInicial().toString())
-                .collect(Collectors.toList());*/
     }
 }

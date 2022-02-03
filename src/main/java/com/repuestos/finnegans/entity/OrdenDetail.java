@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class OrdenDetail implements Serializable {
 
     @Id
@@ -45,5 +44,15 @@ public class OrdenDetail implements Serializable {
         return new OrdenDetailDTO(this);
     }
 
-
+    @Override
+    public String toString() {
+        return "OrdenDetail{" +
+                "id=" + id +
+                ", Descripcion='" + Descripcion + '\'' +
+                ", Orden='" + orden.getNumeroOrden()+'\''+
+                ", producto='" + producto + '\'' +
+                ", cantidad=" + cantidad +
+                ", precio=" + precio +
+                '}';
+    }
 }

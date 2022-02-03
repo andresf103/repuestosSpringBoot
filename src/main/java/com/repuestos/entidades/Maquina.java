@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name="maquina")
@@ -58,5 +57,17 @@ public class Maquina implements Serializable {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Maquina{" +
+                "idMaquina=" + idMaquina +
+                ", patente='" + patente + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", nSerie='" + nSerie + '\'' +
+                ", nMotor='" + nMotor + '\'' +
+                ", modelo='" + modelo + '\'' +
+                '}';
     }
 }

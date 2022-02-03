@@ -56,13 +56,13 @@ public class SendingEmailWithAttachment {
         this.proveedorRestService = proveedorRestService;
     }
 
-    //@Scheduled(fixedDelayString = "${downloadOrdersInterval}")
+    @Scheduled(fixedDelayString = "${downloadOrdersInterval}")
     public void descargarPdfs() {
         List<TrackingDTO> ordenes = null;
         try {
             ordenes = trackingRestService.findAllFromToday();
             DownloadPDFOrder pdfs = new DownloadPDFOrder();
-            List<TrackingDTO> ids = trackingRestService.idsOrders();
+            List<TrackingDTO> ids = trackingRestService.listTracking();
             log.info(ids.toString());
             if (!ids.isEmpty()) {
                 pdfs.downloadAllOrders(ids);
@@ -72,18 +72,17 @@ public class SendingEmailWithAttachment {
         }
         log.info(ordenes.toString());
     }
-    /*
-    * todo:por cada solicitud solo envia la primer orden en caso de que
-    *  tenga mas de una orden asociada a la solicitud
-    * debemos encontrar la manera de que considere todas las ordenes*/
-//@Scheduled(fixedDelay = 86400000L, initialDelay =86400000L)
-public void obteniendoProveedores(){
-    try {proveedorRestService.findAll();
-    } catch (URISyntaxException e) {
-        e.printStackTrace();
+
+    @Scheduled(fixedDelay = 86400000L, initialDelay = 3000L)
+    public void obteniendoProveedores() {
+        try {
+            proveedorRestService.findAll();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
-}
-    //@Scheduled(fixedDelayString = "${sendingEmailInterval}", initialDelay = 900000L)
+
+    @Scheduled(fixedDelayString = "${sendingEmailInterval}", initialDelay = 900000L)
     public void sendEmails() {
         try {
             solicitudRestService.findAllFromToday();

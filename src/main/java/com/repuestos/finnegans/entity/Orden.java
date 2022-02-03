@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Entity
 @Table(name = "orden")
@@ -34,6 +33,7 @@ public class Orden implements Serializable {
     private String proveedor;
     private String numeroOrden;
     private String fecha;
+    private boolean facturado=false;
 
      @OneToMany(mappedBy="orden", fetch = FetchType.EAGER)
     private List<OrdenDetail> ordenDetail = new ArrayList<>();
@@ -57,5 +57,18 @@ public class Orden implements Serializable {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Orden{" +
+                "transactionId=" + transactionId +
+                ", descripcion='" + descripcion + '\'' +
+                ", proveedor='" + proveedor + '\'' +
+                ", numeroOrden='" + numeroOrden + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", facturado=" + facturado +
+                ", ordenDetail=" + ordenDetail +
+                '}';
     }
 }

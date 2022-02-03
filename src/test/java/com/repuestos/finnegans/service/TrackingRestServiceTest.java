@@ -34,7 +34,7 @@ class TrackingRestServiceTest {
         try {
             ordenes = trackingRestService.findAllFromToday();
             DownloadPDFOrder pdfs=new DownloadPDFOrder();
-            List<TrackingDTO>ids= trackingRestService.idsOrders();
+            List<TrackingDTO>ids= trackingRestService.listTracking();
             log.info(ids.toString());
             pdfs.downloadAllOrders(trackingEntityService.findAll().stream().map(Tracking::toDto).collect(Collectors.toList()));
         } catch (URISyntaxException e) {
