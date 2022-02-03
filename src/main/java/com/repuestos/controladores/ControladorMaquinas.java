@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -20,6 +21,13 @@ public class ControladorMaquinas {
     @GetMapping("/maquina/")
     String home(Model model){
     var maquinas = maquinaService.listarMaquinas();
+        model.addAttribute("maquinas", maquinas);
+        return "homeMaquinas";
+    }
+
+    @GetMapping("/maquina/{search}")
+    String listar(@PathVariable(value="search") String search, Model model){
+        var maquinas = maquinaService.listarMaquinas(search);
         model.addAttribute("maquinas", maquinas);
         return "homeMaquinas";
     }
