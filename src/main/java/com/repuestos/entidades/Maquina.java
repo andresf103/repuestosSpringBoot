@@ -26,7 +26,7 @@ public class Maquina implements Serializable {
     @NotEmpty
     private String patente;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "historial_vehicular",
             joinColumns = @JoinColumn(name = "id_maquina"),

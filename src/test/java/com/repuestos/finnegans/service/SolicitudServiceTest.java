@@ -32,7 +32,9 @@ public class SolicitudServiceTest {
     public void testFindAllFromToday() {
 
         try {
-            ordenRestService.findAllFromToday();
+            for (int i = 1; i < 10 ; i++) {
+            ordenRestService.findAllFromYear(i);
+            }
             //solicitudService.findAllFromToday();
         } catch (URISyntaxException e) {
             e.printStackTrace();

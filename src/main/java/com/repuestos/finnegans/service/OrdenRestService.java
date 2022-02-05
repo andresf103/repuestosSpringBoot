@@ -34,15 +34,27 @@ public class OrdenRestService extends AbstractRestService {
 
     @Scheduled(fixedDelayString = "${syncSolicitudesInterval}",initialDelay = 80000L)
     public void findAllFromToday() throws URISyntaxException {
+    ordenesPorMes(1);
+    }
 
-        Date today = new Date();
+    public void findAllFromYear(int year) throws URISyntaxException {
+        for (int i = 0; i < 12; i++) {
+            ordenesPorMes((year*12)+i);
+        }
+    }
+
+    public void ordenesPorMes(int mesAtrazado) throws URISyntaxException {
         Calendar cal = new GregorianCalendar();
-        cal.setTime(today);
-        cal.add(Calendar.DAY_OF_MONTH, -30);
-        Date today30 = cal.getTime();
-        String hoy = new SimpleDateFormat("yyyyMMdd").format(today);
-        String antes = new SimpleDateFormat("yyyyMMdd").format(today30);
-        String url = String.format(EndPoints.ORDEN.getUrl(),antes,hoy);
+        cal.setTime(new Date());
+        int mesi=mesAtrazado*-30;
+        cal.add(Calendar.DAY_OF_MONTH, mesi);
+        Date antes30 = cal.getTime();
+        cal.setTime(antes30);
+        cal.add(Calendar.DAY_OF_MONTH,30);
+        Date despues30=cal.getTime();
+        String despues = new SimpleDateFormat("yyyyMMdd").format(despues30);
+        String antes = new SimpleDateFormat("yyyyMMdd").format(antes30);
+        String url = String.format(EndPoints.ORDEN.getUrl(),antes,despues);
         log.info(url);
 
         ParameterizedTypeReference<List<OrdenDTO>> ordenList;

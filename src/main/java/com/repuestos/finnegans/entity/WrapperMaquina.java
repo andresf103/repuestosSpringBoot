@@ -13,12 +13,14 @@ public class WrapperMaquina {
 
         Set<Orden> ordenes = maquina.getOrden();
         ordenes.forEach(orden -> {
-            map.put("nro_orden", orden.getNumeroOrden());
-            map.put("desc_orden", orden.getDescripcion());
-            map.put("proveedor",orden.getProveedor());
+            Map <String,Object> ordermap=new HashMap<>();
+            ordermap.put("nro_orden", orden.getNumeroOrden());
+            ordermap.put("desc_orden", orden.getDescripcion());
+            ordermap.put("proveedor",orden.getProveedor());
             ArrayList<Map<String, Object>> ordenList = new ArrayList<>();
             ordenList.addAll(toOrderMap(orden));
-            map.put("orden_detail", ordenList);
+            ordermap.put("orden_detail", ordenList);
+            map.put(orden.getNumeroOrden(),ordermap);
         });
         return map;
     }

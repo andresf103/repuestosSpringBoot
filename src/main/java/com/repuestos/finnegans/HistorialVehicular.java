@@ -35,11 +35,14 @@ public class HistorialVehicular {
     public void clasificarOrdenes(List<Maquina> maquinas, List<Orden> ordenes) {
         Map<Maquina, String> patentes = maquinas.stream().collect(Collectors.toMap(maquina -> maquina, Maquina::getPatente));
         Map<Orden, String> ordenesMap = ordenes.stream().collect(Collectors.toMap(orden -> orden, Orden::getDescripcion));
-        patentes.forEach((maquina, patente) -> ordenesMap.forEach((orden, descripcion) -> {
+        patentes.forEach((maquina, patente) -> {
+            ordenesMap.forEach((orden, descripcion) -> {
             String descripcionSinEspacios = descripcion.replaceAll(" ", "");
             if (descripcionSinEspacios.contains(patente)) {
+                if(!maquina.getOrden().contains(orden))
+                {
                 maquina.getOrden().add(orden);
-                maquinaService.guardar(maquina);
+                }
                 try {
                     orden.getOrdenDetail().addAll(ordenDetailRestService.findByOrden(orden));
                     log.info(maquina.getPatente()+ " encontrado en la orden "+ orden.getNumeroOrden() +" "+ orden.getDescripcion());
@@ -48,11 +51,18 @@ public class HistorialVehicular {
                 }
                 ordenEntityService.save(orden);
             }
-        })
+        });
+            try{
+                    maquinaService.guardar(maquina);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
         );
     }
 
-    @Scheduled(fixedDelay = 86400000L, initialDelay = 3000L)
+    @Scheduled(fixedDelay = 86400000L, initialDelay = 86400000L)
     public void rutina(){
         List<Maquina> maquinas=maquinaService.listarMaquinas();
         List<Orden> ordenes= ordenEntityService.findAll();

@@ -23,11 +23,7 @@ public class DownloadPDFOrder {
 
 
     private void descargarOrdenDeCompra(Page currentPage, BrowserContext context, TrackingDTO orden) {
-/**aca necesito sacar la informacion de la solicitud -> usuario ->email
- * orden de compra-> empresa->email
- * para esto del tracking de la orden de compra necesito conseguir el id-transaction de la solicitud
- * y con esa informacion conseguir la info de la solicitud para conseguir el usuario.
- */
+
         Page pageForDownload = context.newPage();
         String constructUrl = String.format(URL_PARTIAL, orden.getTransactionId()) + URL_PARTIAL_FINAL;
         try {

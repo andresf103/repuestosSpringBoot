@@ -63,14 +63,14 @@ public class SendingEmailWithAttachment {
             ordenes = trackingRestService.findAllFromToday();
             DownloadPDFOrder pdfs = new DownloadPDFOrder();
             List<TrackingDTO> ids = trackingRestService.listTracking();
-            log.info(ids.toString());
+            //log.info(ids.toString());
             if (!ids.isEmpty()) {
-                pdfs.downloadAllOrders(ids);
+                //pdfs.downloadAllOrders(ids);
             }
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        log.info(ordenes.toString());
+        //log.info(ordenes.toString());
     }
 
     @Scheduled(fixedDelay = 86400000L, initialDelay = 3000L)

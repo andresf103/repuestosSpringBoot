@@ -54,7 +54,12 @@ public class OrdenDetailRestService extends AbstractRestService {
                 List<OrdenDetailDTO> list = response.getBody();
                 list.forEach(ordenDetailDTO -> {
                     if (orden.getTransactionId().equals(ordenDetailDTO.getTransactionId())) {
-                        ordenDetailEntityService.save(new OrdenDetail(ordenDetailDTO, orden));
+                        try {
+                            ordenDetailEntityService.save(new OrdenDetail(ordenDetailDTO, orden));
+                        } catch (Exception e){
+                            log.error("ordendetail " + ordenDetailDTO.toString());
+                            e.printStackTrace();
+                        }
                     }
                 });
             } else {
