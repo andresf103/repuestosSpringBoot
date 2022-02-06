@@ -24,19 +24,20 @@
                     </div>
                     <a class="btn btn-primary" th:href="@{/maquina/agregar}">Agregar</a>
                 </div>
-                <div class="table-header">PATENTE</div>
-                <div class="table-header">DESCRIPCIÓN</div>
-                <div class="table-header">Nº DE SERIE</div>
-                <div class="table-header">Nº DE MOTOR</div>
-                <div class="table-header">MODELO</div>
+                <div class="table-header" style="justify-content: left;">PATENTE</div>
+                <div class="table-header" style="justify-content: left;">DESCRIPCIÓN</div>
+                <div class="table-header" style="justify-content: left;">Nº DE SERIE</div>
+                <div class="table-header" style="justify-content: left;">Nº DE MOTOR</div>
+                <div class="table-header" style="justify-content: left;">MODELO</div>
                 <div class="table-header"></div>
                 <div class="table-header"></div>
+                <div class="table-header">Historial</div>
                 <th:block th:each="maquina : ${maquinas}">
-                    <div class="table-item"><a th:href="@{/maquinaRepuesto/} + ${maquina.idMaquina}" >[[${maquina.patente}]]</a></div>
-                    <div class="table-item">[[${maquina.descripcion}]]</div>
-                    <div class="table-item">[[${maquina.nSerie}]]</div>
-                    <div class="table-item">[[${maquina.nMotor}]]</div>
-                    <div class="table-item">[[${maquina.modelo}]]</div>
+                    <div class="table-item" style="justify-content: left;"><a th:href="@{/maquinaRepuesto/} + ${maquina.idMaquina}" >[[${maquina.patente}]]</a></div>
+                    <div class="table-item" style="justify-content: left;">[[${maquina.descripcion}]]</div>
+                    <div class="table-item" style="justify-content: left;">[[${maquina.nSerie}]]</div>
+                    <div class="table-item" style="justify-content: left;">[[${maquina.nMotor}]]</div>
+                    <div class="table-item" style="justify-content: left;">[[${maquina.modelo}]]</div>
                     <div class="table-item"><a  th:href="@{/maquina/editar/} + ${maquina.idMaquina}" class="btn btn-primary">
                         <i class="fas fa-angle-double-right"></i> Editar </a>
                     </div>
@@ -44,6 +45,9 @@
                                                class="btn btn-dark">
                         <i class="fas fa-angle-double-right"></i> Eliminar
                     </a></div>
+                    <div class="table-item"><a th:href="@{/historial/vehiculo/} + ${maquina.idMaquina}"
+                                               class="btn btn-dark">
+                        <i class="fas fa-angle-double-right"></i> Ver</a></div>
                 </th:block>
             </div>
         </th:block>
@@ -64,6 +68,7 @@
                 <div class="table-header">MODELO</div>
                 <div class="table-header"></div>
                 <div class="table-header"></div>
+                <div class="table-header">Historial</div>
                 <span>la lista esta vacía</span>
         </th:block>
 

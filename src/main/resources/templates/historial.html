@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="fragments/head :: head">
+    </head>
+
+    <body>
+        <header>
+            <div th:replace="fragments/header :: header"></div>
+        </header>
+        <main>
+            <section class="mt-5">
+                <th:block  th:if="${vehiculo != null}">
+                    <div class="container-table">
+                        <div class="table-title">
+                            <div class="col-md-11" style="display: inline-block">
+                                <center>
+                                    <h4>Historial [[${vehiculo.patente}]] [[${vehiculo.descripcion}]]</h4>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="table-header">Numero de Orden</div>
+                        <div class="table-header">Proveedor</div>
+                        <div class="table-header"></div>
+                        <div class="table-header">Descripcion</div>
+                        <div class="table-header"></div>
+                        <div class="table-header">Fecha</div>
+                        <div class="table-header"></div>
+                        <div class="table-header">Facturado</div>
+                        <th:block th:each="order : ${ordenes}">
+                            <div class="table-item" style="justify-content: left;">[[${order.numeroOrden}]]</div>
+                            <div class="table-item">[[${order.proveedor}]] </div>
+                            <div class="table-item repuestos-descripcion">[[${order.descripcion}]]</div>
+                            <div class="table-item">[[${order.fecha}]]</div>
+                            <div class="table-item"></div>
+                            <div class="table-item">[[${order.facturado}]]</div>
+                            <!-- detalle -->
+                            <div class="detail-header"></div>
+                            <div class="detail-header">Producto</div>
+                            <div class="detail-header repuestos-descripcion">Descripcion</div>
+                            <div class="detail-header">Cantidad</div>
+                            <div class="detail-header">Precio</div>
+                            <div class="detail-header"></div>
+                            <th:block th:each="orderDetail: ${order.ordenDetail}">
+                                <div class="detail"></div>
+                                <div class="detail">[[${orderDetail.producto}]]</div>
+                                <div class="detail repuestos-descripcion">[[${orderDetail.Descripcion}]]</div>
+                                <div class="detail">[[${orderDetail.cantidad}]]</div>
+                                <div class="detail">[[${orderDetail.precio}]]</div>
+                                <div class="detail"></div>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </th:block>
+            </section>
+        </main>
+        <footer>
+            <div th:replace="fragments/footer :: footer">
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+        <script src="/historial.js"></script>
+    </body>
+
+</html>

@@ -49,11 +49,11 @@ footer {
     box-shadow: 0 0 20px #333;
     display:grid;
     grid-template-columns: repeat(7,1fr);
-    grid-auto-rows: 60px 40px auto;
+    grid-auto-rows: minmax(20px, auto) minmax(40px, auto) auto;
 }
 .table-title{
     grid-column-start: 1;
-    grid-column-end: 8;
+    grid-column-end: 9;
     background: hsla(214, 65%, 85%, 0.06);
     display: flex;
     justify-content:center;
@@ -66,16 +66,41 @@ footer {
     display:flex;
     justify-content: center;
     align-items: center;
-    border-bottom:1px solid white;
+
+    border-top:1px solid white;
 }
 .table-header{
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.8em;
+    border-bottom:1px solid white;
+    padding:10px;
+    display: flex;
 }
 .table-item{
     padding:10px;
-    font-size: 1em;
+    font-size: 0.8em;
+    border-bottom:1px dashed white;
+    flex: 1;
+    display: flex;
 }
+
+.repuestos-descripcion{
+    grid-column: 3 / 6;
+}
+
+.detail, .detail-header{
+background: #1C5142;
+border-bottom:1px dotted white;
+display:flex;
+justify-content: center;
+align-items: center;
+font-size: 0.8em;
+}
+
+.detail-header{
+font-weight: bold;
+}
+
 @media(min-width:601px){
 }
 

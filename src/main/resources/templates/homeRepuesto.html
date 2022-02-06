@@ -18,21 +18,17 @@
                             <a class="btn btn-primary" th:href="@{/repuesto/agregar}">Agregar</a>
                         </div>
                         <div class="table-header">ID Repuesto</div>
-                        <div class="table-header">DESCRIPCIÓN</div>
                         <div class="table-header"></div>
+                        <div class="table-header"></div>
+                        <div class="table-header" >DESCRIPCIÓN</div>
                         <div class="table-header"></div>
                         <div class="table-header"></div>
                         <div class="table-header"></div>
                         <div class="table-header"></div>
                         <th:block th:each="repuesto : ${repuestos}">
                             <div class="table-item">[[${repuesto.idRepuesto}]]</div>
-                            <div class="table-item">[[${repuesto.descripcion}]]</div>
-                            <div class="table-item">
-
-                            </div>
-                            <div class="table-item">
-
-                            </div>
+                            <div class="table-item"></div>
+                            <div class="table-item repuestos-descripcion">[[${repuesto.descripcion}]]</div>
                             <div class="table-item"></div>
                             <div class="table-item"><a  th:href="@{/repuesto/editar/} + ${repuesto.idRepuesto}"
                                                         class="btn btn-primary">

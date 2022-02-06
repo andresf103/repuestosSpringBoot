@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,5 +39,15 @@ public class ControladorHistorialVehicular {
         maquina.setIdMaquina(idMaquina);
         maquina=maquinaService.encontrarMaquina(maquina);
         return new ResponseEntity<Map<String, Object>>(WrapperMaquina.toMinimalMap(maquina), HttpStatus.OK);
+    }
+
+    @GetMapping("/vehiculo/{idMaquina}")
+    String homeMaquinaRepuesto(@PathVariable(value="idMaquina")Long idMaquina, Model model) {
+        Maquina maquina=new Maquina();
+        maquina.setIdMaquina(idMaquina);
+        var vehiculo=maquinaService.encontrarMaquina(maquina);
+        model.addAttribute("vehiculo",vehiculo);
+        model.addAttribute("ordenes",vehiculo.getOrden().stream().sorted((o1, o2) -> o1.getTransactionId().intValue() - o2.getTransactionId().intValue()).collect(Collectors.toList()));
+        return "historial";
     }
 }

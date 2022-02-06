@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/maquina/editar/**",
                         "/maquina/agregar/**")
                 .hasRole("ADMIN")
-                .antMatchers("/", "/maquina/", "/maquinaRepuesto/**", "/repuesto/", "/repuesto")
+                .antMatchers("/", "/maquina/", "/maquinaRepuesto/**", "/repuesto/", "/repuesto", "/historial/**")
                 .hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()

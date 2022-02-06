@@ -49,13 +49,17 @@ public class OrdenDetailRestService extends AbstractRestService {
             ParameterizedTypeReference<List<OrdenDetailDTO>> ordenList;
             ordenList = new ParameterizedTypeReference<>() {
             };
+            try {
             ResponseEntity<List<OrdenDetailDTO>> response = executeRequest(url, HttpMethod.GET, ordenList);
+
             if (HttpStatus.OK.equals(response.getStatusCode())) {
                 List<OrdenDetailDTO> list = response.getBody();
                 list.forEach(ordenDetailDTO -> {
                     if (orden.getTransactionId().equals(ordenDetailDTO.getTransactionId())) {
                         try {
+                            if(ordenDetailDTO.getPrecio()!=null){
                             ordenDetailEntityService.save(new OrdenDetail(ordenDetailDTO, orden));
+                            }
                         } catch (Exception e){
                             log.error("ordendetail " + ordenDetailDTO.toString());
                             e.printStackTrace();
@@ -65,6 +69,9 @@ public class OrdenDetailRestService extends AbstractRestService {
             } else {
                 log.error("There was an error\n" + response.getBody());
                 throw new RuntimeException("Hubo un error");
+            }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
         Optional<Orden> optionalOrden = ordenEntityService.findByTransactionId(orden.getTransactionId());

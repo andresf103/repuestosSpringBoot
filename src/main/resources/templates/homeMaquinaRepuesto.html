@@ -24,11 +24,13 @@
                         <div class="table-header"></div>
                         <div class="table-header"></div>
                         <div class="table-header"></div>
+                        <div class="table-header"></div>
                         <th:block th:each="maquinaRepuesto : ${maquinaRepuestos}">
                             <div class="table-item">[[${maquinaRepuesto.idMaquinaRepuesto}]]</div>
                             <div class="table-item">[[${maquinaRepuesto.repuesto.descripcion}]]</div>
                             <div class="table-item">[[${maquinaRepuesto.descripcion}]]</div>
                             <div class="table-item">[[${maquinaRepuesto.marca}]]</div>
+                            <div class="table-item"></div>
                             <div class="table-item"></div>
                             <div class="table-item"><a  th:href="@{/maquinaRepuesto/editar/} + ${maquinaRepuesto.idMaquinaRepuesto}"
                                                         class="btn btn-primary">
