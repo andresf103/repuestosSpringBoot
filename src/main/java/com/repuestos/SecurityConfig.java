@@ -22,6 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("{noop}environment")
                 .roles("ADMIN", "USER")
                 .and()
+                .withUser("gabriel")
+                .password("{noop}oic123")
+                .roles("ADMIN", "USER")
+                .and()
                 .withUser("usuario")
                 .password("{noop}usuario")
                 .roles("USER");
@@ -36,7 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/repuesto/editar/**",
                         "/maquina/eliminar",
                         "/maquina/editar/**",
-                        "/maquina/agregar/**")
+                        "/maquina/agregar/**",
+                        "/maquinaRepuesto/agregar/maquina/**",
+                        "/maquinaRepuesto/eliminar",
+                        "/maquinaRepuesto/editar/**")
                 .hasRole("ADMIN")
                 .antMatchers("/", "/maquina/", "/maquinaRepuesto/**", "/repuesto/", "/repuesto", "/historial/**")
                 .hasAnyRole("ADMIN", "USER")
