@@ -37,21 +37,22 @@ public class HistorialVehicular {
         Map<Orden, String> ordenesMap = ordenes.stream().collect(Collectors.toMap(orden -> orden, Orden::getDescripcion));
         patentes.forEach((maquina, patente) -> {
             ordenesMap.forEach((orden, descripcion) -> {
-            String descripcionSinEspacios = descripcion.replaceAll(" ", "");
-            if (descripcionSinEspacios.contains(patente)) {
-                if(!maquina.getOrden().contains(orden))
-                {
-                maquina.getOrden().add(orden);
+                if (!maquina.getOrden().contains(orden)) {
+                    String descripcionSinEspacios = descripcion.replaceAll(" ", "");
+                    if (descripcionSinEspacios.contains(patente)) {
+                        maquina.getOrden().add(orden);
+                        try {
+                            if (orden.getOrdenDetail().isEmpty()) {
+                                orden.getOrdenDetail().addAll(ordenDetailRestService.findByOrden(orden));
+                            }
+                            log.info(maquina.getPatente() + " encontrado en la orden " + orden.getNumeroOrden() + " " + orden.getDescripcion());
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        ordenEntityService.save(orden);
+                    }
                 }
-                try {
-                    orden.getOrdenDetail().addAll(ordenDetailRestService.findByOrden(orden));
-                    log.info(maquina.getPatente()+ " encontrado en la orden "+ orden.getNumeroOrden() +" "+ orden.getDescripcion());
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-                ordenEntityService.save(orden);
-            }
-        });
+            });
             try{
                     maquinaService.guardar(maquina);
             }catch(Exception e){
@@ -63,10 +64,10 @@ public class HistorialVehicular {
     }
 
     @Scheduled(fixedDelay = 86400000L, initialDelay = 86400000L)
-    public void rutina(){
-        List<Maquina> maquinas=maquinaService.listarMaquinas();
-        List<Orden> ordenes= ordenEntityService.findAll();
-        clasificarOrdenes(maquinas,ordenes);
+    public void rutina() {
+        List<Maquina> maquinas = maquinaService.listarMaquinas();
+        List<Orden> ordenes = ordenEntityService.findLastOnes();
+        clasificarOrdenes(maquinas, ordenes);
     }
 
 //cuando mostramos las ordenes de una maquina primero las filtramos si la orden esta facturada.

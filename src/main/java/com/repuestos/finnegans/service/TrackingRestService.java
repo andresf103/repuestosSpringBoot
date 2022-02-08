@@ -64,7 +64,7 @@ public class TrackingRestService extends AbstractRestService {
 
             List <TrackingDTO> listTrackingFacturas=list.stream().filter(ordenDTO1->
                             ordenDTO1.getTipoDocumento().equals(TipoDocumento.FACTURA_DE_COMPRA.getDocumento())
-                                    ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.ORDEN_DE_COMPRA_REPUESTOS.getDocumento()))
+                                    ||ordenDTO1.getTipoDocumento().equals(TipoDocumento.FACTURA_DE_COMPRA_REPUESTOS.getDocumento()))
                     .collect(Collectors.toList());
             setOrdenFacturada(listTrackingFacturas);
 

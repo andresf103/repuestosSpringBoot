@@ -3,6 +3,8 @@ package com.repuestos.finnegans.service;
 import com.repuestos.finnegans.dao.DaoOrden;
 import com.repuestos.finnegans.entity.Orden;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +34,11 @@ public class OrdenEntityService {
 
     public List<Orden> findAll() {
         return daoOrden.findAll();
+    }
+
+    public List<Orden> findLastOnes(){
+        Pageable page= PageRequest.of(0, 500);
+        return daoOrden.findTopOrderDesc(page).getContent();
     }
 
 }

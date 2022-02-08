@@ -65,7 +65,7 @@ public class SendingEmailWithAttachment {
             List<TrackingDTO> ids = trackingRestService.listTracking();
             //log.info(ids.toString());
             if (!ids.isEmpty()) {
-                //pdfs.downloadAllOrders(ids);
+                pdfs.downloadAllOrders(ids);
             }
         } catch (URISyntaxException e) {
             e.printStackTrace();
