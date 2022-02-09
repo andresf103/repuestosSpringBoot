@@ -27,7 +27,7 @@ public class ControladorMaquinas {
 
     @GetMapping("/maquina/{search}")
     String listar(@PathVariable(value="search") String search, Model model){
-        var maquinas = maquinaService.listarMaquinas(search);
+        var maquinas = maquinaService.listarMaquinas(search.replaceAll(" ",""));
         model.addAttribute("maquinas", maquinas);
         return "homeMaquinas";
     }
