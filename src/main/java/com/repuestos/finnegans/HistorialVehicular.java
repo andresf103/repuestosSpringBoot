@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class HistorialVehicular {
         patentes.forEach((maquina, patente) -> {
             ordenesMap.forEach((orden, descripcion) -> {
                 if (!maquina.getOrden().contains(orden)) {
-                    String descripcionSinEspacios = descripcion.replaceAll(" ", "");
+                    String descripcionSinEspacios = descripcion.replaceAll(" ", "").toUpperCase(Locale.ROOT);
                     if (descripcionSinEspacios.contains(patente)) {
                         maquina.getOrden().add(orden);
                         try {
@@ -63,7 +64,7 @@ public class HistorialVehicular {
         );
     }
 
-    @Scheduled(fixedDelay = 86400000L, initialDelay = 86400000L)
+    @Scheduled(fixedDelay = 86400000L, initialDelay = 10000L)
     public void rutina() {
         List<Maquina> maquinas = maquinaService.listarMaquinas();
         List<Orden> ordenes = ordenEntityService.findLastOnes();
