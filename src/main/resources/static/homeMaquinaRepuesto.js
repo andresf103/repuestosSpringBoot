@@ -1,7 +1,7 @@
    const button = document.getElementById("buscar");
     const searchBox=document.getElementById("buscador");
-    const dir=window.location.pathname;
-    const end="/maquina";
+    const dir=window.location.pathname
+    const end="/maquinarepuesto/2";
     button.addEventListener("click", (ev) => {
         location.href = dir.substring(0,end.length)+ "/" + searchBox.value;
     });

@@ -1,7 +1,6 @@
 package com.repuestos.controladores;
 
 import com.repuestos.entidades.Maquina;
-import com.repuestos.finnegans.HistorialVehicular;
 import com.repuestos.finnegans.entity.Orden;
 import com.repuestos.finnegans.entity.WrapperMaquina;
 import com.repuestos.servicio.MaquinaService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -42,12 +40,31 @@ public class ControladorHistorialVehicular {
     }
 
     @GetMapping("/vehiculo/{idMaquina}")
-    String homeMaquinaRepuesto(@PathVariable(value="idMaquina")Long idMaquina, Model model) {
-        Maquina maquina=new Maquina();
+    String homeMaquinaRepuesto(@PathVariable(value = "idMaquina") Long idMaquina, Model model) {
+        Maquina maquina = new Maquina();
         maquina.setIdMaquina(idMaquina);
-        var vehiculo=maquinaService.encontrarMaquina(maquina);
-        model.addAttribute("vehiculo",vehiculo);
-        model.addAttribute("ordenes",vehiculo.getOrden().stream().sorted((o1, o2) -> o1.getTransactionId().intValue() - o2.getTransactionId().intValue()).collect(Collectors.toList()));
+        var vehiculo = maquinaService.encontrarMaquina(maquina);
+        model.addAttribute("vehiculo", vehiculo);
+        model.addAttribute("ordenes", vehiculo.getOrden().stream().sorted((o1, o2) -> o2.getTransactionId().intValue() - o1.getTransactionId().intValue()).collect(Collectors.toList()));
         return "historial";
     }
+
+    @GetMapping("/vehiculo/{idMaquina}/{search}")
+    String buscar(Maquina maquina, @PathVariable("search") String search, Model model) {
+        var vehiculo = maquinaService.encontrarMaquina(maquina);
+        String searchU = search.toUpperCase();
+        model.addAttribute("vehiculo", vehiculo);
+        List<Orden> ordenes = vehiculo.getOrden().stream()
+                .sorted((o1, o2) -> o2.getTransactionId().intValue() - o1.getTransactionId().intValue())
+                .collect(Collectors.toList());
+        ordenes = ordenes.stream().filter(orden -> {
+            String comparacion = orden.getProveedor().toUpperCase()
+                    + orden.getDescripcion().toUpperCase()
+                    + orden.getOrdenDetail().toString().toUpperCase();
+            return comparacion.contains(searchU);
+        }).collect(Collectors.toList());
+        model.addAttribute("ordenes", ordenes);
+        return "historial";
+    }
+
 }

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -29,13 +31,29 @@ public class ControladorMaquinaRepuesto {
     @GetMapping("/maquinaRepuesto/{idMaquina}")
     String homeMaquinaRepuesto(Maquina maquina, Model model) {
         var maquinaRepuestos = maquinaRepuestoService.listarPorMaquina(maquina);
-        var vehiculo=maquinaService.encontrarMaquina(maquina);
-        model.addAttribute("vehiculo",vehiculo);
+        var vehiculo = maquinaService.encontrarMaquina(maquina);
+        model.addAttribute("vehiculo", vehiculo);
         model.addAttribute("maquinaRepuestos", maquinaRepuestos);
         return "homeMaquinaRepuesto";
     }
-    
-        @GetMapping("/maquinaRepuesto/")
+
+    @GetMapping("/maquinaRepuesto/{idMaquina}/{search}")
+    String buscarMaquina(Maquina maquina, @PathVariable("search") String search, Model model) {
+        var maquinaRepuestos = maquinaRepuestoService.listarPorMaquina(maquina);
+        var vehiculo = maquinaService.encontrarMaquina(maquina);
+        maquinaRepuestos = maquinaRepuestos.stream().filter(maquinaRepuesto -> {
+            String comparacion = maquinaRepuesto.getDescripcion().toUpperCase()
+                    + maquinaRepuesto.getRepuesto().getDescripcion().toUpperCase()
+                    + maquinaRepuesto.getMarca().toUpperCase();
+            String searchU = search.toUpperCase();
+            return comparacion.contains(searchU);
+        }).collect(Collectors.toList());
+        model.addAttribute("vehiculo", vehiculo);
+        model.addAttribute("maquinaRepuestos", maquinaRepuestos);
+        return "homeMaquinaRepuesto";
+    }
+
+    @GetMapping("/maquinaRepuesto/")
     String homeMaquinaRepuestos(Maquina maquina) {
         return "homeMaquinaRepuesto";
     }
