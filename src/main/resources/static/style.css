@@ -6,6 +6,11 @@ position: absolute;
     top: 25vh;
     left: 5vw;
 }
+
+.form-group>label{
+        display: inline-block;
+        width: 150px;
+}
 ::-webkit-scrollbar-track {
     background: #222;
 }
