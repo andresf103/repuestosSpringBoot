@@ -1,12 +1,6 @@
 ::-webkit-scrollbar {
     width: 10px;
 }
-#login-position{
-position: absolute;
-    top: 25vh;
-    left: 5vw;
-}
-
 .form-group>label{
         display: inline-block;
         width: 150px;
