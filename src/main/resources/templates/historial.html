@@ -16,8 +16,8 @@
                     <div class="container-table">
                         <div class="table-title">
                             <div class="col-md-11" style="display: flex">
-                                    <h4>Historial [[${vehiculo.patente}]] [[${vehiculo.descripcion}]]</h4>
-                                <div class="input-group px-3 w-50 ">
+                                <h4 class="w-50">Historial [[${vehiculo.patente}]]</h4>
+                                <div class="input-group px-3 w-50 " style="align-items: center;">
                                     <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Buscar"
                                            aria-describedby="search-addon" id="buscador"/>
                                     <button type="button" id="buscar" class="btn btn-primary">Buscar</button>
@@ -33,26 +33,26 @@
                         <div class="table-header"></div>
                         <div class="table-header">Facturado</div>
                         <th:block th:each="order : ${ordenes}">
-                            <div class="table-item" style="justify-content: left;">[[${order.numeroOrden}]]</div>
-                            <div class="table-item">[[${order.proveedor}]] </div>
-                            <div class="table-item repuestos-descripcion">[[${order.descripcion}]]</div>
-                            <div class="table-item">[[${order.fecha}]]</div>
-                            <div class="table-item"></div>
-                            <div class="table-item">[[${order.facturado}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'"  style="justify-content: left;">[[${order.numeroOrden}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.proveedor}]] </div>
+                            <div th:attr="class='table-item repuestos-descripcion ', onclick='toggle('+${order.numeroOrden}+')'">[[${order.descripcion}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.fecha}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" ></div>
+                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.facturado}]]</div>
                             <!-- detalle -->
-                            <div class="detail-header"></div>
-                            <div class="detail-header">Producto</div>
-                            <div class="detail-header repuestos-descripcion">Descripcion</div>
-                            <div class="detail-header">Cantidad</div>
-                            <div class="detail-header">Precio</div>
-                            <div class="detail-header"></div>
-                            <th:block th:each="orderDetail: ${order.ordenDetail}">
-                                <div class="detail"></div>
-                                <div class="detail">[[${orderDetail.producto}]]</div>
-                                <div class="detail repuestos-descripcion">[[${orderDetail.Descripcion}]]</div>
-                                <div class="detail">[[${orderDetail.cantidad}]]</div>
-                                <div class="detail">[[${orderDetail.precio}]]</div>
-                                <div class="detail"></div>
+                            <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;"></div>
+                            <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;">Producto</div>
+                            <div th:attr="class='detail-header repuestos-descripcion ' + ${order.numeroOrden}" style="display:none;">Descripcion</div>
+                            <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;">Cantidad</div>
+                            <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;">Precio</div>
+                            <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;"></div>
+                            <th:block th:each="orderDetail: ${order.ordenDetail}" style="display:none;">
+                                <div th:attr="class='detail '+${order.numeroOrden}" style="display:none;"></div>
+                                <div th:attr="class='detail '+${order.numeroOrden}" style="display:none;">[[${orderDetail.producto}]]</div>
+                                <div th:attr="class='detail repuestos-descripcion '+${order.numeroOrden}" style="display:none;">[[${orderDetail.Descripcion}]]</div>
+                                <div th:attr="class='detail '+${order.numeroOrden}" style="display:none;">[[${orderDetail.cantidad}]]</div>
+                                <div th:attr="class='detail '+${order.numeroOrden}" style="display:none;">[[${orderDetail.precio}]]</div>
+                                <div th:attr="class='detail '+${order.numeroOrden}" style="display:none;"></div>
                             </th:block>
                         </th:block>
                     </div>
@@ -64,6 +64,7 @@
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
         <script type="module" src="/historial.js"></script>
+        <script src="/historial2.js"></script>
     </body>
 
 </html>
