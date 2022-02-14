@@ -33,12 +33,12 @@
                         <div class="table-header"></div>
                         <div class="table-header">Facturado</div>
                         <th:block th:each="order : ${ordenes}">
-                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'"  style="justify-content: left;">[[${order.numeroOrden}]]</div>
-                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.proveedor}]] </div>
-                            <div th:attr="class='table-item repuestos-descripcion ', onclick='toggle('+${order.numeroOrden}+')'">[[${order.descripcion}]]</div>
-                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.fecha}]]</div>
-                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" ></div>
-                            <div th:attr="class='table-item ', onclick='toggle('+${order.numeroOrden}+')'" >[[${order.facturado}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle(\''+${order.numeroOrden}+'\')'"  style="justify-content: left;">[[${order.numeroOrden}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle(\''+${order.numeroOrden}+'\')'" >[[${order.proveedor}]] </div>
+                            <div th:attr="class='table-item repuestos-descripcion ', onclick='toggle(\''+${order.numeroOrden}+'\')'">[[${order.descripcion}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle(\''+${order.numeroOrden}+'\')'" >[[${order.fecha}]]</div>
+                            <div th:attr="class='table-item ', onclick='toggle(\''+${order.numeroOrden}+'\')'" ></div>
+                            <div th:attr="class='table-item ', onclick='toggle(\''+${order.numeroOrden}+'\')'" >[[${order.facturado}]]</div>
                             <!-- detalle -->
                             <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;"></div>
                             <div th:attr="class='detail-header '+ ${order.numeroOrden}" style="display:none;">Producto</div>
