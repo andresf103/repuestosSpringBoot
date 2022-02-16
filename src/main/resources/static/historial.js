@@ -1,4 +1,4 @@
-import {buscar,toggle} from '../codigo.js';
+import {buscar} from '../codigo.js';
 const cantSlashOfPathName=3;
 buscar(cantSlashOfPathName);
 
