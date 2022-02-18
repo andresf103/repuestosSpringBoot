@@ -1,4 +1,3 @@
-//document.getElementById("submit").onclick = () => document.getElementById("form").submit();
 //3
 export function buscar(cantSlashes) {
 const dir=window.location.pathname;

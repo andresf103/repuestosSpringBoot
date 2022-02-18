@@ -68,6 +68,7 @@ public class HistorialVehicular {
     public void rutina() {
         List<Maquina> maquinas = maquinaService.listarMaquinas();
         List<Orden> ordenes = ordenEntityService.findLastOnes();
+        //List<Orden> ordenes = ordenEntityService.findAll();
         clasificarOrdenes(maquinas, ordenes);
     }
 
