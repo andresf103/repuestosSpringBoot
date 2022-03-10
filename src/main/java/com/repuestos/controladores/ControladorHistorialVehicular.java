@@ -1,6 +1,7 @@
 package com.repuestos.controladores;
 
 import com.repuestos.entidades.Maquina;
+import com.repuestos.finnegans.HistorialVehicular;
 import com.repuestos.finnegans.entity.Orden;
 import com.repuestos.finnegans.entity.WrapperMaquina;
 import com.repuestos.servicio.MaquinaService;
@@ -25,10 +26,12 @@ import java.util.stream.Collectors;
 public class ControladorHistorialVehicular {
 
     private final MaquinaService maquinaService;
+    private final HistorialVehicular historialVehicular;
 
     @Autowired
-    ControladorHistorialVehicular(MaquinaService maquinaService){
+    ControladorHistorialVehicular(MaquinaService maquinaService, HistorialVehicular historialVehicular){
         this.maquinaService = maquinaService;
+        this.historialVehicular = historialVehicular;
     }
 
     @GetMapping(value="/{idMaquina}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,6 +68,15 @@ public class ControladorHistorialVehicular {
         }).collect(Collectors.toList());
         model.addAttribute("ordenes", ordenes);
         return "historial";
+    }
+
+    @GetMapping("/vehiculo/actulizarhistorial/{idMaquina}")
+    String actualizarVehicular(@PathVariable(value = "idMaquina") Long idMaquina, Model model) {
+        Maquina maquina = new Maquina();
+        maquina.setIdMaquina(idMaquina);
+        var vehiculo = maquinaService.encontrarMaquina(maquina);
+        historialVehicular.historialVehicularPorPatente(vehiculo.getPatente());
+        return "redirect:/historial/vehiculo/" +idMaquina;
     }
 
 }

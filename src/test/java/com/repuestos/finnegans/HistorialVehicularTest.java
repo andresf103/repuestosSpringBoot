@@ -31,14 +31,14 @@ class HistorialVehicularTest {
 
     @Test
     void historialVehicularParticular(){
-        try {
+       /* try {
             for (int i = 1; i < 3 ; i++) {
                 ordenRestService.findAllFromYear(i);
             }
             //solicitudService.findAllFromToday();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }
+        }*/
         historialVehicular.historialVehicularPorPatente("IVX787");
     }
 }
