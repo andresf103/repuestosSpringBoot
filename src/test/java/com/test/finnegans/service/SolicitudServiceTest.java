@@ -1,44 +1,44 @@
-package com.repuestos.finnegans;
+package com.test.finnegans.service;
 
-import com.repuestos.RepuestosApplication;
 import com.repuestos.finnegans.service.OrdenRestService;
+import com.repuestos.finnegans.service.SolicitudRestService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.repuestos.RepuestosApplication;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {RepuestosApplication.class})
-class HistorialVehicularTest {
+public class SolicitudServiceTest {
 
     @Autowired
-    HistorialVehicular historialVehicular;
+    private SolicitudRestService solicitudService;
     @Autowired
-    OrdenRestService ordenRestService;
+    private OrdenRestService ordenRestService;
 
-    @Test
-    void rutina() {
-        historialVehicular.rutina();
+    public SolicitudServiceTest() {
     }
 
     @Test
-    void historialVehicularParticular(){
-       /* try {
-            for (int i = 1; i < 3 ; i++) {
-                ordenRestService.findAllFromYear(i);
+    public void testFindAllFromToday() {
+
+        try {
+            for (int i = 1; i < 10 ; i++) {
+            ordenRestService.findAllFromYear(i);
             }
             //solicitudService.findAllFromToday();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }*/
-        historialVehicular.historialVehicularPorPatente("IVX787");
+        }
     }
 }

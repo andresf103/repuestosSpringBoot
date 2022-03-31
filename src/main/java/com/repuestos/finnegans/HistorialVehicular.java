@@ -68,7 +68,15 @@ public class HistorialVehicular {
     public void rutina() {
         List<Maquina> maquinas = maquinaService.listarMaquinas();
         List<Orden> ordenes = ordenEntityService.findLastOnes();
+        //List<Orden> ordenes = ordenEntityService.findAll();
         clasificarOrdenes(maquinas, ordenes);
+    }
+
+    public void historialVehicularPorPatente(String patente) {
+        List<Maquina> maquinas = maquinaService.listarMaquinas();
+        List<Maquina> maquina=maquinas.stream().filter(maquinita -> maquinita.getPatente().equals(patente)).collect(Collectors.toList());
+        List<Orden> ordenes = ordenEntityService.findAll();
+        clasificarOrdenes(maquina, ordenes);
     }
 
 //cuando mostramos las ordenes de una maquina primero las filtramos si la orden esta facturada.
