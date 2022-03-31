@@ -71,7 +71,7 @@ public class DownloadPDFOrder {
             page.navigate("https://services.finneg.com/login");
             page.fill("#loginname", "afernandez");
             page.press("#loginname", "Tab");
-            page.fill("#loginpassword", "oic123");
+            page.fill("#loginpassword", "condor4812");
             page.press("#loginpassword", "Tab");
             if (!page.inputValue("#logincompany").equals("oic")) {
                 page.fill("#logincompany", "oic");
